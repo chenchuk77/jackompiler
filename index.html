@@ -1,71 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-</head>
+        <script type="text/javascript" src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    </head>
 
 
 
-<hr>
+    <body>
 
-    <button id="ajax">ajax call</button>
-    <button id="json">json</button>
+    <div style="width: 100%;float:right;" >
+        <div id="headerdiv">Hack Assembler</div>
+        <div class="instructions">Enter Hack machine language instructions on the left side
+                                    and get the resulting binary representation
+                                    on the right side.
+        </div>
 
+            <div id="asmdiv" style="float:left; width: 50%">
+                <div class="content">Hack machine language code:</div>
+                <textarea id="asmText"></textarea>
+            </div>
 
-</hr>
-</hr>
-</hr>
-
-<!--<form action="/index/output" method="POST">-->
-<!--<input type="text" name="text_box" id="t">-->
-<!--</form>-->
-
-<form action="http://localhost:8080/greeting" method="POST">
-    <textarea name="text_box" id="t">  </textarea>
-</form>
-
-
-    <script type="text/javascript">
-        $('#json').click(function(){
-            alert('json');
-            $.getJSON("http://localhost:8080/greeting",
-                function(data) {
-                    console.log('hello');
-                    console.log(data);
-                    //alert(data.id);
-                });
-        });
-
-//        $('#ajax').click(function(){
-//            alert('ajax');
-//            $.ajax({
-//                type: "GET",
-//                dataType: "json",
-//                url: "http://localhost:8080/greeting",
-//                success: function(data){
-//                    alert(data);
-//                }
-//            });
-//        });
-
-        $('#t').keyup(function(){
-            $.ajax({
-                url : 'http://localhost:8080/greeting',
-                data : {
-                    text_box : $('textarea').val()
-                },
-                success : function(html) {
-                    $('#result').html(html);
-                }
-            })
-        })
+            <div id="hackdiv" style="float:right; width: 50%">
+                <div class="content">Hack binary machine code:</div>
+                <textarea id="hackText"></textarea>
+            </div>
+        </div>
+    </body>
 
 
-
-    </script>
-
-</body>
 
 </html>

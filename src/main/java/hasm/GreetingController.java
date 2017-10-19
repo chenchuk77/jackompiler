@@ -2,17 +2,14 @@ package hasm;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import hack.core.Assembler;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class GreetingController {
+
+    String userCode;
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -22,21 +19,73 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
+
+    @RequestMapping(value = "/assemble",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    UserProgram assemble(@RequestParam("source") String source, @RequestParam("location") String location) {
+        // your logic here
+
+        UserProgram userProgram = new UserProgram();
+        userProgram.setSource(source);
+        Assembler assembler = new Assembler(source);
+        //String hackCode = assembler.getHackCode();
+        userProgram.setOutput(assembler.getHackCode());
+
+        //return source + "0000000000\n1111111111\n0000111100001111";
+        return userProgram;
+    }
+//    @RequestMapping(value = "/assemble",
+//            method = RequestMethod.POST,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public @ResponseBody
+//    String assemble(@RequestParam("source") String source,@RequestParam("location") String location) {
+//        // your logic here
+//
+//        SourceCode sourceCode = new SourceCode();
+//        sourceCode.setSource(source + "0000000000\n1111111111\n0000111100001111");
+//        //return source + "0000000000\n1111111111\n0000111100001111";
+//        return source + "0000000000\n1111111111\n0000111100001111";
+//    }
+
+//    @GetMapping
+//    @RequestMapping("/get")
+//    public Map<String, String> sayHello() {
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("key", "value");
+//        map.put("foo", "bar");
+//        map.put("aa", "bb");
+//        return map;
+//    }
+
     @RequestMapping("/hi")
     public String hi() {
         return "hi dude";
     }
+//    @RequestMapping(value = "/assemble", method = RequestMethod.POST, consumes = "text/plain")
+//        public String someMethod(@RequestBody String postPayload) {
+//            return postPayload;
+//
+//        }
+//    }
+//    @RequestMapping(value = "/", method = RequestMethod.POST)
+//    public ResponseEntity<SourceCode> update(@RequestBody SourceCode sourceCode) {
+//        if (sourceCode != null) {
+//            sourceCode.setSource(sourceCode.getMiles() + 100);
+//        }
+//
+//        // TODO: call persistence layer to update
+//        return new ResponseEntity<Car>(car, HttpStatus.OK);
+//
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String test() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-        map.add("email", "first.last@example.com");
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity( url, request , String.class );
+    @RequestMapping(value = "/")
+    public ResponseEntity<UserProgram> get() {
+        UserProgram sourceCode = new UserProgram();
+        sourceCode.setOwner("someone");
+        sourceCode.setSource("@100\nD=A\n@200\nD=D+A");
+        return new ResponseEntity<UserProgram>(sourceCode, HttpStatus.OK);
     }
+
 }

@@ -1,41 +1,33 @@
 /**
  * Created by chenchuk on 10/19/17.
+ *
+ * javascript XHR Client for the Hack Assembler REST service.
+ *
+ * Each key pressed will POST the *.asm code written in the Hack machine language
+ * to the server. The server will reply with JSON of the binary converted code.
+ *
  */
-<html>
-<head>
-<script type="text/javascript" src="jquery-1.6.2.min.js"></script>
-    </head>
 
-    <body>
+$(document).ready(function() {
+    $('#asmText').keyup(function(){
+        $.ajax({
+            url : 'http://localhost:8080/assemble',
+            type: "POST",
+            dataType: "json",
+            data : {
+                source :     $('#asmText').val(),
+                location : 'test location'
+            },
+            success : function(data) {
+                //$('#hackText').val(data.source);
+                $('#hackText').val(data.output);
+            },
+            error:   function(jqXHR, textStatus, errorThrown) {
+                console.log("Error, status = " + textStatus + ", " +
+                    "error thrown: " + errorThrown
+                );
+            }
 
-    <button id="ajax">ajax call</button>
-<button id="json">json</button>
-
-    <script type="text/javascript">
-    $('#json').click(function(){
-        alert('json');
-        $.getJSON("http://localhost:8080/restws/json/product/get",
-            function(data) {
-                alert(data);
-            });
-    });
-
-$('#ajax').click(function(){
-    alert('ajax');
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "http://localhost:8080/restws/json/product/get",
-        success: function(data){
-            alert(data);
-        }
-    });
+        })
+    })
 });
-
-</script>
-
-
-
-</body>
-
-</html>
