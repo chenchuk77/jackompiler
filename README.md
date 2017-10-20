@@ -4,12 +4,11 @@ It takes native code (can copy/paste from example asm files), and return immedia
 the result assembly binary representation. The binary output can be saved as *.hack
 file and can be loaded to a Hack CPU Emulator.
 
-### Rules
 * The asm code should be error free
 * newlines are ignored
 * comments are ignored // only single line comment, like this
 
-### Structure
+#### Structure
 * Frontend
   * HTML/Javascript for getting user code for assembling.
   * Javascript with JQuery used for posting machine language 
@@ -18,7 +17,7 @@ file and can be loaded to a Hack CPU Emulator.
   * Spring boot application listens on port 8090 via embedded tomcat.
   * posting asm code will reply with the assembled code in a binary representation.
 
-## Installation
+### Installation
 * Backend:
 > `~/$ cd /var/www/html`
 
@@ -32,7 +31,7 @@ file and can be loaded to a Hack CPU Emulator.
 Setup apache web server to listen on www.mysite.com, change the
 server address in main.js to point to the backend address.
 
-## Running the project
+### Running the project
 The project shipped with 2 scripts :
 * `./start-backend.sh`
   * Starts the spring REST service that provides the assembler functionality.
@@ -44,10 +43,12 @@ The project shipped with 2 scripts :
 After starting the backend, it can process requests. open a web browser
  to http://www.mysite.com
  
-## Assembly files examples
-* In /asm-examples folder you will find some source files. 
+### Examples
+* /asm-examples folder you will find some source files. 
+* http://hasm.devopskb.net/asm-examples/Add.asm
+* http://hasm.devopskb.net/
 
-## TODO
+### TODO
 *  make flexible config, currently hardcoded in main.js file.
 *  split project into core module and web module, add maven dependencies. 
 *  ignore multiline comments
