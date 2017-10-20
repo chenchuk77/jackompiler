@@ -1,3 +1,5 @@
 target/*
 *.iml
 *.lst
+.iml
+.lst
