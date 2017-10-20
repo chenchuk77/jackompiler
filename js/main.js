@@ -11,7 +11,7 @@
 $(document).ready(function() {
     $('#asmText').keyup(function(){
         $.ajax({
-            url : 'http://localhost:8090/assemble',
+            url : 'http://www.devopskb.net:8090/assemble',
             type: "POST",
             dataType: "json",
             data : {
