@@ -27,9 +27,6 @@ public class Code {
         return "JJJ-3bits";
     }
     public String generateAcommand(String symbol) {
-        //Integer intSymbol = Integer.parseInt(symbol);
-        //intSymbol.toBinaryString(2);
-        //System.out.println("A - output: " + intSymbol);
         String out;
         try {
             // if its a number :
