@@ -43,5 +43,14 @@ $(document).ready(function() {
             }
 
         })
-    })
+    });
+    $("#exampleAdd").click(function(){
+        window.open('asm-examples/Add.asm');
+    });
+    $("#exampleMult").click(function(){
+        window.open('asm-examples/Mult.asm');
+    });
+    $("#exampleRect").click(function(){
+        window.open('asm-examples/Rect.asm');
+    });
 });
