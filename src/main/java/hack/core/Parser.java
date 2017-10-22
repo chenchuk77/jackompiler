@@ -64,26 +64,6 @@ public class Parser {
         numOfLines = list.size();
         return list;
     }
-    // read file to list without comments and newlines
-//    private List<String> makeList (String filename){
-//        List<String> list = new ArrayList<String>();
-//        try (Stream<String> stream = Files.lines(Paths.get(filename))) {
-//            stream.forEach(line -> {
-//                if (line != null){
-//                    String command = removeComments(line);
-//                    if(!command.isEmpty()){
-//                        list.add(command.trim());
-//                    }
-//
-//                }
-//            });
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        numOfLines = list.size();
-//        return list;
-//    }
-//
 
 
     public Boolean hasMoreCommands(){
