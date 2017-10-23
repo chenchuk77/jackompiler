@@ -40,7 +40,7 @@ public class Parser {
         System.out.println("parsing");
         while (hasMoreCommands()){
             advance();
-            System.out.println("parser return from advance");
+            //System.out.println("parser return from advance");
             Command command = new Command();
 
             command.setCommandType(commandType(currentCommand));
