@@ -27,7 +27,7 @@ public class Parser {
 
     public void init(){
         iterator = vmCommandsList.iterator();
-        System.out.println("parser init");
+        //System.out.println("parser init");
 
     }
 
@@ -37,7 +37,7 @@ public class Parser {
 
     public void parse(){
         //private Command parse(){
-        System.out.println("parsing");
+        //System.out.println("parsing");
         while (hasMoreCommands()){
             advance();
             //System.out.println("parser return from advance");
@@ -52,7 +52,7 @@ public class Parser {
                 command.setArg2(arg2(currentCommand));
             }
 
-            System.out.println("calling codeWriter with command : " + command);
+            //System.out.println("calling codeWriter with command : " + command);
 
             codeWriter.addAsm(command);
             //command;

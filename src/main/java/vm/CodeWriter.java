@@ -22,17 +22,14 @@ public class CodeWriter {
     // local, argument, this, that:  mapped directly on the Hack RAM
     private Map<String, String> memorySegment;
 
-    private void init(){
+    public CodeWriter(String outputAsmCode){
+        this.outputAsmCode = outputAsmCode;
+        this.index = 0;
         memorySegment = new HashMap<String, String>();
         memorySegment.put("local",    "LCL");   // RAM [1]
         memorySegment.put("argument", "ARG");   // RAM [2]
         memorySegment.put("this",     "THIS");  // RAM [3]
         memorySegment.put("that",     "THAT");  // RAM [4]
-    }
-
-    public CodeWriter(String outputAsmCode){
-        this.outputAsmCode = outputAsmCode;
-        this.index = 0;
     }
     public void  writeArithmetic(){
         // add to output string
