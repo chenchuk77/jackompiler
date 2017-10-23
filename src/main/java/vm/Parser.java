@@ -22,13 +22,10 @@ public class Parser {
         this.codeWriter = codeWriter;
         vmCommandsList = makeList(inputVmCode);
         init();
-
     }
 
     public void init(){
         iterator = vmCommandsList.iterator();
-        //System.out.println("parser init");
-
     }
 
     public Boolean hasMoreCommands(){
@@ -36,13 +33,9 @@ public class Parser {
     }
 
     public void parse(){
-        //private Command parse(){
-        //System.out.println("parsing");
         while (hasMoreCommands()){
             advance();
-            //System.out.println("parser return from advance");
             Command command = new Command();
-
             command.setCommandType(commandType(currentCommand));
             if (command.getCommandType()==CommandType.C_ARITHMETIC){
                 command.setOperation(operation(currentCommand));
@@ -51,21 +44,8 @@ public class Parser {
                 command.setArg1(arg1(currentCommand));
                 command.setArg2(arg2(currentCommand));
             }
-
-            //System.out.println("calling codeWriter with command : " + command);
-
             codeWriter.addAsm(command);
-            //command;
-            //
-//            String operation =
-//            if (cmd.getType() == "L_COMMAND"){
-//                symbolTable.addEntry(parser.getLabel(), pc);
-//                System.out.println("added entry : " + parser.getLabel() + " = " + (pc));
-//            } else {
-//                pc++;
-//            }
         }
-        //return null;
     }
 
     // 1st word in command to categorize the command
@@ -73,13 +53,12 @@ public class Parser {
         String[] s = commandString.split(" ");
         if (s[0].equals("push")) return CommandType.C_PUSH;
         if (s[0].equals("pop"))  return CommandType.C_POP;
-
-        List<String> arithmaticCommands = Arrays.asList(ARITHMETIC_OPERS);
-        if (arithmaticCommands.contains(s[0])) return CommandType.C_ARITHMETIC;
+        List<String> arithmeticCommands = Arrays.asList(ARITHMETIC_OPERS);
+        if (arithmeticCommands.contains(s[0])) return CommandType.C_ARITHMETIC;
         return null;
     }
 
-    // 1st word is operation in case of C_ARITHMATIC
+    // 1st word is operation in case of C_ARITHMETIC
     private String operation(String commandString){
         String[] s = commandString.split(" ");
         return  s[0];

@@ -7,6 +7,8 @@ import java.util.Map;
  * Created by chenchuk on 10/21/17.
  */
 public class CodeWriter {
+
+    private String prefix;
     private String outputAsmCode;
     private Command command;
     private Integer index;
@@ -22,7 +24,8 @@ public class CodeWriter {
     // local, argument, this, that:  mapped directly on the Hack RAM
     private Map<String, String> memorySegment;
 
-    public CodeWriter(String outputAsmCode){
+    public CodeWriter(String filename, String outputAsmCode){
+        this.prefix = filename.substring(0,filename.indexOf('.'));
         this.outputAsmCode = outputAsmCode;
         this.index = 0;
         memorySegment = new HashMap<String, String>();
@@ -48,16 +51,50 @@ public class CodeWriter {
         StringBuilder pushCommand = new StringBuilder();
 
         // const is direct value
-        if (arg1.equals("constant")){
-            pushCommand.append("    // push constant " +arg2 )      ; pushCommand.append("\n");
-            pushCommand.append("    @" +arg2 )                   ; pushCommand.append("\n");
-            pushCommand.append("    D=A")                        ; pushCommand.append("\n");
+        if (arg1.equals("constant")) {
+            pushCommand.append("    // push constant " + arg2); pushCommand.append("\n");
+            pushCommand.append("    @" + arg2);                 pushCommand.append("\n");
+            pushCommand.append("    D=A");                      pushCommand.append("\n");
+            pushCommand.append("    @SP");                      pushCommand.append("\n");
+            pushCommand.append("    A=M");                      pushCommand.append("\n");
+            pushCommand.append("    M=D");                      pushCommand.append("\n");
+            pushCommand.append("    @SP");                      pushCommand.append("\n");
+            pushCommand.append("    M=M+1");                    pushCommand.append("\n\n");
+        } else if (arg1.equals("temp")) {
+            // temp segment is 8 Fixed addresses
+            Integer equivRegister = arg2 + 5; // temp 0 mapped to R5,.... temp 7 mapped to R12
+            String RX = "R" + equivRegister.toString();
+            pushCommand.append("    // push temp " +arg2+ " (" +RX+ ")") ; pushCommand.append("\n");
+            pushCommand.append("    @" +RX )                     ; pushCommand.append("\n");
+            pushCommand.append("    D=M")                        ; pushCommand.append("\n");
+            pushCommand.append("    @SP")                        ; pushCommand.append("\n");
+            pushCommand.append("    A=M")                        ; pushCommand.append("\n");
+            pushCommand.append("    M=D")                        ; pushCommand.append("\n");
+            pushCommand.append("    @SP")                        ; pushCommand.append("\n");
+            pushCommand.append("    M=M+1")                      ; pushCommand.append("\n\n");
+        } else if (arg1.equals("pointer")) {
+            // pointer 0 -> THIS , pointer 1 -> THAT
+            String PTR = (arg2 == 0) ? "THIS" : "THAT";
+            pushCommand.append("    // push pointer " +arg2)     ; pushCommand.append("\n");
+            pushCommand.append("    @" +PTR )                    ; pushCommand.append("\n");
+            pushCommand.append("    D=M")                        ; pushCommand.append("\n");
+            pushCommand.append("    @SP")                        ; pushCommand.append("\n");
+            pushCommand.append("    A=M")                        ; pushCommand.append("\n");
+            pushCommand.append("    M=D")                        ; pushCommand.append("\n");
+            pushCommand.append("    @SP")                        ; pushCommand.append("\n");
+            pushCommand.append("    M=M+1")                      ; pushCommand.append("\n\n");
+        } else if (arg1.equals("static")) {
+            // static used the [filename.x] convention
+            pushCommand.append("    // push static " +arg2)      ; pushCommand.append("\n");
+            pushCommand.append("    @" +prefix+ "." +arg2)     ; pushCommand.append("\n");
+            pushCommand.append("    D=M")                        ; pushCommand.append("\n");
             pushCommand.append("    @SP")                        ; pushCommand.append("\n");
             pushCommand.append("    A=M")                        ; pushCommand.append("\n");
             pushCommand.append("    M=D")                        ; pushCommand.append("\n");
             pushCommand.append("    @SP")                        ; pushCommand.append("\n");
             pushCommand.append("    M=M+1")                      ; pushCommand.append("\n\n");
         } else {
+            // pointers of base addresses
             pushCommand.append("    // push " +arg1+ " " +arg2 ) ; pushCommand.append("\n");
             pushCommand.append("    @" +arg2 )                   ; pushCommand.append("\n");
             pushCommand.append("    D=A")                        ; pushCommand.append("\n");
@@ -74,20 +111,52 @@ public class CodeWriter {
     }
     private String generatePop(String arg1, Integer arg2){
         StringBuilder popCommand = new StringBuilder();
-        popCommand.append("    // pop " +arg1+ " " +arg2 )  ; popCommand.append("\n");
-        popCommand.append("    @" +arg2 )                   ; popCommand.append("\n");
-        popCommand.append("    D=A")                        ; popCommand.append("\n");
-        popCommand.append("    @" +memorySegment.get(arg1)) ; popCommand.append("\n");
-        popCommand.append("    D=A+D")                      ; popCommand.append("\n");
-        popCommand.append("    @addr")                      ; popCommand.append("\n");
-        popCommand.append("    M=D")                        ; popCommand.append("\n");
-        popCommand.append("    @SP")                        ; popCommand.append("\n");
-        popCommand.append("    M=M-1")                      ; popCommand.append("\n");
-        popCommand.append("    A=M")                        ; popCommand.append("\n");
-        popCommand.append("    D=M")                        ; popCommand.append("\n");
-        popCommand.append("    @addr")                      ; popCommand.append("\n");
-        popCommand.append("    A=M")                        ; popCommand.append("\n");
-        popCommand.append("    M=D")                        ; popCommand.append("\n\n");
+        if (arg1.equals("temp")) {
+            // temp segment is 8 Fixed addresses
+            Integer equivRegister = arg2 + 5; // temp 0 mapped to R5,.... temp 7 mapped to R12
+            String RX = "R" + equivRegister.toString();
+            popCommand.append("    // pop temp " +arg2+ " (" +RX+ ")") ; popCommand.append("\n");
+            popCommand.append("    @SP")                        ; popCommand.append("\n");
+            popCommand.append("    M=M-1")                      ; popCommand.append("\n");
+            popCommand.append("    A=M")                        ; popCommand.append("\n");
+            popCommand.append("    D=M")                        ; popCommand.append("\n");
+            popCommand.append("    @" + RX)                     ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n");
+        } else if (arg1.equals("pointer")) {
+            // pointer 0 -> THIS , pointer 1 -> THAT
+            String PTR = (arg2 == 0) ? "THIS" : "THAT";
+            popCommand.append("    // pop pointer " +arg2+ " (" +PTR+ ")") ; popCommand.append("\n");
+            popCommand.append("    @SP")                        ; popCommand.append("\n");
+            popCommand.append("    M=M-1")                      ; popCommand.append("\n");
+            popCommand.append("    A=M")                        ; popCommand.append("\n");
+            popCommand.append("    D=M")                        ; popCommand.append("\n");
+            popCommand.append("    @" + PTR)                    ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n");
+        } else if (arg1.equals("static")) {
+            // static used the [filename.x] convention
+            popCommand.append("    // pop static " +arg2)       ; popCommand.append("\n");
+            popCommand.append("    @SP")                        ; popCommand.append("\n");
+            popCommand.append("    M=M-1")                      ; popCommand.append("\n");
+            popCommand.append("    A=M")                        ; popCommand.append("\n");
+            popCommand.append("    D=M")                        ; popCommand.append("\n");
+            popCommand.append("    @" +prefix+ "." +arg2)       ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n");
+        } else{
+            popCommand.append("    // pop " +arg1+ " " +arg2 )  ; popCommand.append("\n");
+            popCommand.append("    @" +arg2 )                   ; popCommand.append("\n");
+            popCommand.append("    D=A")                        ; popCommand.append("\n");
+            popCommand.append("    @" +memorySegment.get(arg1)) ; popCommand.append("\n");
+            popCommand.append("    D=A+D")                      ; popCommand.append("\n");
+            popCommand.append("    @addr")                      ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n");
+            popCommand.append("    @SP")                        ; popCommand.append("\n");
+            popCommand.append("    M=M-1")                      ; popCommand.append("\n");
+            popCommand.append("    A=M")                        ; popCommand.append("\n");
+            popCommand.append("    D=M")                        ; popCommand.append("\n");
+            popCommand.append("    @addr")                      ; popCommand.append("\n");
+            popCommand.append("    A=M")                        ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n\n");
+        }
         return popCommand.toString();
     }
     private String generateAdd(){
