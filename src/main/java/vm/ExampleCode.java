@@ -44,10 +44,16 @@ public class ExampleCode {
             "or\n" +
             "not\n";
 
+    public static final String Ptr =
+            "push constant 3\n" +
+            "pop pointer 0\n" +
+            "push constant 4\n" +
+            "pop pointer 1\n" +
+            "add\n";
     public static final String SimpleAdd =
             "push constant 7\n" +
-                    "push constant 8\n" +
-                    "add\n";
+            "push constant 8\n" +
+            "add\n";
     public static final String PointerTest =
             "push constant 3030\n" +
             "pop pointer 0\n" +

@@ -25,7 +25,13 @@ public class CodeWriter {
     private Map<String, String> memorySegment;
 
     public CodeWriter(String filename, String outputAsmCode){
+
+        // only filename for 'static' handling
         this.prefix = filename.substring(0,filename.indexOf('.'));
+        if (prefix.contains("/")){
+            this.prefix = prefix.substring(filename.indexOf('/')+1);
+        }
+
         this.outputAsmCode = outputAsmCode;
         this.index = 0;
         memorySegment = new HashMap<String, String>();
@@ -99,7 +105,7 @@ public class CodeWriter {
             pushCommand.append("    @" +arg2 )                   ; pushCommand.append("\n");
             pushCommand.append("    D=A")                        ; pushCommand.append("\n");
             pushCommand.append("    @" +memorySegment.get(arg1)) ; pushCommand.append("\n");
-            pushCommand.append("    A=A+D")                      ; pushCommand.append("\n");
+            pushCommand.append("    A=M+D")                      ; pushCommand.append("\n");
             pushCommand.append("    D=M")                        ; pushCommand.append("\n");
             pushCommand.append("    @SP")                        ; pushCommand.append("\n");
             pushCommand.append("    A=M")                        ; pushCommand.append("\n");
@@ -121,7 +127,7 @@ public class CodeWriter {
             popCommand.append("    A=M")                        ; popCommand.append("\n");
             popCommand.append("    D=M")                        ; popCommand.append("\n");
             popCommand.append("    @" + RX)                     ; popCommand.append("\n");
-            popCommand.append("    M=D")                        ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n\n");
         } else if (arg1.equals("pointer")) {
             // pointer 0 -> THIS , pointer 1 -> THAT
             String PTR = (arg2 == 0) ? "THIS" : "THAT";
@@ -131,7 +137,7 @@ public class CodeWriter {
             popCommand.append("    A=M")                        ; popCommand.append("\n");
             popCommand.append("    D=M")                        ; popCommand.append("\n");
             popCommand.append("    @" + PTR)                    ; popCommand.append("\n");
-            popCommand.append("    M=D")                        ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n\n");
         } else if (arg1.equals("static")) {
             // static used the [filename.x] convention
             popCommand.append("    // pop static " +arg2)       ; popCommand.append("\n");
@@ -140,13 +146,13 @@ public class CodeWriter {
             popCommand.append("    A=M")                        ; popCommand.append("\n");
             popCommand.append("    D=M")                        ; popCommand.append("\n");
             popCommand.append("    @" +prefix+ "." +arg2)       ; popCommand.append("\n");
-            popCommand.append("    M=D")                        ; popCommand.append("\n");
+            popCommand.append("    M=D")                        ; popCommand.append("\n\n");
         } else{
             popCommand.append("    // pop " +arg1+ " " +arg2 )  ; popCommand.append("\n");
             popCommand.append("    @" +arg2 )                   ; popCommand.append("\n");
             popCommand.append("    D=A")                        ; popCommand.append("\n");
             popCommand.append("    @" +memorySegment.get(arg1)) ; popCommand.append("\n");
-            popCommand.append("    D=A+D")                      ; popCommand.append("\n");
+            popCommand.append("    D=M+D")                      ; popCommand.append("\n");
             popCommand.append("    @addr")                      ; popCommand.append("\n");
             popCommand.append("    M=D")                        ; popCommand.append("\n");
             popCommand.append("    @SP")                        ; popCommand.append("\n");
