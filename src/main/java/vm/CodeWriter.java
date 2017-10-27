@@ -343,7 +343,47 @@ public class CodeWriter {
         ltCommand.append("    M=M+1")                      ; ltCommand.append("\n\n");
         return ltCommand.toString();
     }
+    private String generateLabel(String label){
+        StringBuilder labelCommand = new StringBuilder();
+        labelCommand.append("    // generate label\n");
+        labelCommand.append("(" +label+ ")")               ; labelCommand.append("\n\n");
+        return labelCommand.toString();
+    }
+    private String generateGoto(String destination){
+        StringBuilder gotoCommand = new StringBuilder();
+        gotoCommand.append("    // generate goto\n");
+        gotoCommand.append("    @" +destination)           ; gotoCommand.append("\n");
+        gotoCommand.append("    0;JMP")                    ; gotoCommand.append("\n\n");
+        return gotoCommand.toString();
+    }
+//    private String generateIfGoto(String destination){
+//        // peeking the top stack *(SP-1) , JNE = jump if not false
+//        // 0  = false (0000000000000000)
+//        // -1 = true  (1111111111111111)
+//        StringBuilder ifGotoCommand = new StringBuilder();
+//        ifGotoCommand.append("    // generate if-goto\n");
+//        ifGotoCommand.append("    @SP")                    ; ifGotoCommand.append("\n");
+//        ifGotoCommand.append("    A=M-1")                  ; ifGotoCommand.append("\n");
+//        ifGotoCommand.append("    D=M")                    ; ifGotoCommand.append("\n");
+//        ifGotoCommand.append("    @" +destination)         ; ifGotoCommand.append("\n");
+//        ifGotoCommand.append("    D;JNE")                  ; ifGotoCommand.append("\n\n");
+//        return ifGotoCommand.toString();
+//    }
 
+    private String generateIfGoto(String destination){
+        // pop and eval *(SP-1) , JNE = jump if not false
+        // 0  = false (0000000000000000)
+        // -1 = true  (1111111111111111)
+        StringBuilder ifGotoCommand = new StringBuilder();
+        ifGotoCommand.append("    // generate if-goto\n");
+        ifGotoCommand.append("    @SP")                    ; ifGotoCommand.append("\n");
+        ifGotoCommand.append("    M=M-1")                  ; ifGotoCommand.append("\n");
+        ifGotoCommand.append("    A=M")                  ; ifGotoCommand.append("\n");
+        ifGotoCommand.append("    D=M")                    ; ifGotoCommand.append("\n");
+        ifGotoCommand.append("    @" +destination)         ; ifGotoCommand.append("\n");
+        ifGotoCommand.append("    D;JNE")                  ; ifGotoCommand.append("\n\n");
+        return ifGotoCommand.toString();
+    }
 
 
 
@@ -371,7 +411,18 @@ public class CodeWriter {
             if (command.getOperation().equals("not")) outputAsmCode += generateNot();
 
         }
-            //System.out.println(command.getArg1());
+        if  (command.getCommandType() == CommandType.C_LABEL) {
+            outputAsmCode += generateLabel(command.getLabel());
+        }
+        if  (command.getCommandType() == CommandType.C_GOTO) {
+            outputAsmCode += generateGoto(command.getJumpDestination());
+        }
+        if  (command.getCommandType() == CommandType.C_IF) {
+            outputAsmCode += generateIfGoto(command.getJumpDestination());
+        }
+
+
+        //System.out.println(command.getArg1());
 
                 //outputAsmCode += sb.toString();
             //System.out.println(outputAsmCode);

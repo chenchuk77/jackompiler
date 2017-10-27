@@ -40,10 +40,16 @@ public class Parser {
             if (command.getCommandType()==CommandType.C_ARITHMETIC){
                 command.setOperation(operation(currentCommand));
             } else if (command.getCommandType()==CommandType.C_PUSH ||
-                        command.getCommandType()==CommandType.C_POP ){
+                    command.getCommandType()==CommandType.C_POP ){
                 command.setArg1(arg1(currentCommand));
                 command.setArg2(arg2(currentCommand));
-            }
+            } else if (command.getCommandType()==CommandType.C_LABEL) {
+                command.setLabel(arg1(currentCommand));
+            } else if (command.getCommandType()==CommandType.C_GOTO) {
+                command.setJumpDestination(arg1(currentCommand));
+            } else if (command.getCommandType()==CommandType.C_IF) {
+                command.setJumpDestination(arg1(currentCommand));
+        }
             codeWriter.addAsm(command);
         }
     }
@@ -51,8 +57,11 @@ public class Parser {
     // 1st word in command to categorize the command
     private CommandType commandType(String commandString){
         String[] s = commandString.split(" ");
-        if (s[0].equals("push")) return CommandType.C_PUSH;
-        if (s[0].equals("pop"))  return CommandType.C_POP;
+        if (s[0].equals("push"))      return CommandType.C_PUSH;
+        if (s[0].equals("pop"))       return CommandType.C_POP;
+        if (s[0].equals("label"))     return CommandType.C_LABEL;
+        if (s[0].equals("goto"))      return CommandType.C_GOTO;
+        if (s[0].equals("if-goto"))   return CommandType.C_IF;
         List<String> arithmeticCommands = Arrays.asList(ARITHMETIC_OPERS);
         if (arithmeticCommands.contains(s[0])) return CommandType.C_ARITHMETIC;
         return null;

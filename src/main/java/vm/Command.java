@@ -6,11 +6,30 @@ package vm;
 public class Command {
     private CommandType commandType;
     private String operation;
+    private String label;
+    private String jumpDestination;
     private String arg1;
+
+    public String getJumpDestination() {
+        return jumpDestination;
+    }
+
+    public void setJumpDestination(String jumpDestination) {
+        this.jumpDestination = jumpDestination;
+    }
+
     private Integer arg2;
 
     public String getOperation() {
         return operation;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public void setOperation(String operation) {
