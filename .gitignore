@@ -3,3 +3,7 @@ target/*
 *.lst
 .iml
 .lst
+*.asm
+*.vm
+*.tst
+**/*.out
