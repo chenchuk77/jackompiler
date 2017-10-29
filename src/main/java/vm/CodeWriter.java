@@ -356,19 +356,6 @@ public class CodeWriter {
         gotoCommand.append("    0;JMP")                    ; gotoCommand.append("\n\n");
         return gotoCommand.toString();
     }
-//    private String generateIfGoto(String destination){
-//        // peeking the top stack *(SP-1) , JNE = jump if not false
-//        // 0  = false (0000000000000000)
-//        // -1 = true  (1111111111111111)
-//        StringBuilder ifGotoCommand = new StringBuilder();
-//        ifGotoCommand.append("    // generate if-goto\n");
-//        ifGotoCommand.append("    @SP")                    ; ifGotoCommand.append("\n");
-//        ifGotoCommand.append("    A=M-1")                  ; ifGotoCommand.append("\n");
-//        ifGotoCommand.append("    D=M")                    ; ifGotoCommand.append("\n");
-//        ifGotoCommand.append("    @" +destination)         ; ifGotoCommand.append("\n");
-//        ifGotoCommand.append("    D;JNE")                  ; ifGotoCommand.append("\n\n");
-//        return ifGotoCommand.toString();
-//    }
 
     private String generateIfGoto(String destination){
         // pop and eval *(SP-1) , JNE = jump if not false
@@ -385,9 +372,219 @@ public class CodeWriter {
         return ifGotoCommand.toString();
     }
 
+//    // function is just a label (call/return should implement the logic
+//    private String generateFunction(String name, Integer numOfLocalVars){
+//        StringBuilder functionCommand = new StringBuilder();
+//        functionCommand.append("    // generate function with " +numOfLocalVars+ " local vars\n");
+//        functionCommand.append("(" +name+ ")")               ; functionCommand.append("\n\n");
+//        return functionCommand.toString();
+//    }
+    // function is a label (call/return should implement the logic
+    // needs to initialize nVars to '0'
+    private String generateFunction(String name, Integer nVars){
+        StringBuilder functionCommand = new StringBuilder();
+        functionCommand.append("    // generate function with " +nVars+ " local vars\n");
+        functionCommand.append("(" +name+ ")");                 functionCommand.append("\n");
+        functionCommand.append("    @" +nVars);                       functionCommand.append("\n");
+        functionCommand.append("    D=A");                      functionCommand.append("\n");
+
+        functionCommand.append("    @nvars_" +name);            functionCommand.append("\n");
+        functionCommand.append("    M=D");                      functionCommand.append("\n");
+        functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
+        functionCommand.append("    M=0");                      functionCommand.append("\n");
+//        functionCommand.append("(INIT_LOCAL_VARS_" +name+ ")"); functionCommand.append("\n");
+        functionCommand.append("(" +name+ "$init_locals)"); functionCommand.append("\n");
+        functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
+        functionCommand.append("    D=M");                      functionCommand.append("\n");
+        functionCommand.append("    @nvars_" +name);            functionCommand.append("\n");
+        functionCommand.append("    D=M-D");                    functionCommand.append("\n");
+//        functionCommand.append("    @END_LOCAL_VARS_" +name);   functionCommand.append("\n");
+        functionCommand.append("    @" +name+ "$end_init_locals");   functionCommand.append("\n");
+        functionCommand.append("    D;JEQ");                    functionCommand.append("\n");
+        functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
+        functionCommand.append("    M=M+1");                    functionCommand.append("\n\n");
+
+        // push constant 0
+        functionCommand.append("    @0");                       functionCommand.append("\n");
+        functionCommand.append("    D=A");                      functionCommand.append("\n");
+        functionCommand.append("    @SP");                      functionCommand.append("\n");
+        functionCommand.append("    A=M");                      functionCommand.append("\n");
+        functionCommand.append("    M=D");                      functionCommand.append("\n");
+        functionCommand.append("    @SP");                      functionCommand.append("\n");
+        functionCommand.append("    M=M+1");                    functionCommand.append("\n\n");
+        // done push constant 0
+//        functionCommand.append("    @INIT_LOCAL_VARS_" +name);  functionCommand.append("\n");
+        functionCommand.append("    @" +name+ "$init_locals");  functionCommand.append("\n");
+        // repeat nVar times
+        functionCommand.append("    0;JMP");                    functionCommand.append("\n");
+
+        functionCommand.append("("+name+ "$end_init_locals)");  functionCommand.append("\n\n");
+//        functionCommand.append("(END_LOCAL_VARS_" +name+ ")");  functionCommand.append("\n\n");
+        return functionCommand.toString();
+    }
 
 
+    private String generateCall(String functionName, Integer nArgs){
+        Integer argOffset = 5 + nArgs;
+        // 1. push returnAddress
+        // 2. push LCL
+        // 3. push ARG
+        // 4. push THIS
+        // 5. push THAT
 
+        int id = index++;
+        StringBuilder callCommand = new StringBuilder();
+        callCommand.append("    // generate call " +functionName+ " " +nArgs+ " (id: " +id+ ")\n");
+        callCommand.append("    @" +functionName+ "$ret." +id)              ; callCommand.append("\n");
+//        callCommand.append("    @END_" +functionName+ "_" +id)              ; callCommand.append("\n");
+        callCommand.append("    D=A")                    ; callCommand.append("\n");
+        callCommand.append(pushValue())                  ; callCommand.append("\n");
+        callCommand.append("    @LCL")                   ; callCommand.append("\n");
+        callCommand.append("    D=M")                    ; callCommand.append("\n");
+        callCommand.append(pushValue())                  ; callCommand.append("\n");
+        callCommand.append("    @ARG")                   ; callCommand.append("\n");
+        callCommand.append("    D=M")                    ; callCommand.append("\n");
+        callCommand.append(pushValue())                  ; callCommand.append("\n");
+        callCommand.append("    @THIS")                  ; callCommand.append("\n");
+        callCommand.append("    D=M")                    ; callCommand.append("\n");
+        callCommand.append(pushValue())                  ; callCommand.append("\n");
+        callCommand.append("    @THAT")                  ; callCommand.append("\n");
+        callCommand.append("    D=M")                    ; callCommand.append("\n");
+        callCommand.append(pushValue())                  ; callCommand.append("\n");
+        // set LCL for the callee
+        callCommand.append("    @SP")                    ; callCommand.append("\n");
+        callCommand.append("    D=M")                    ; callCommand.append("\n");
+        callCommand.append("    @LCL")                   ; callCommand.append("\n");
+        callCommand.append("    M=D")                    ; callCommand.append("\n");
+        // ARG of the callee is SP - 5 pushed cells - num of args
+        callCommand.append("    @" +argOffset)           ; callCommand.append("\n");
+        callCommand.append("    D=A")                    ; callCommand.append("\n");
+        callCommand.append("    @SP")                    ; callCommand.append("\n");
+        callCommand.append("    A=M")                    ; callCommand.append("\n");
+        callCommand.append("    D=A-D")                  ; callCommand.append("\n");
+        callCommand.append("    @ARG")                   ; callCommand.append("\n");
+        callCommand.append("    M=D")                    ; callCommand.append("\n");
+
+        // jump to function
+        callCommand.append("    @" +functionName)        ; callCommand.append("\n");
+        callCommand.append("    0;JMP")                    ; callCommand.append("\n");
+
+
+        callCommand.append("(" +functionName+ "$ret." +id+ ")")             ; callCommand.append("\n\n");
+//        callCommand.append("(END_" +functionName+ "_" +id+ ")")             ; callCommand.append("\n");
+
+
+//        // set sp=sp-nArgs+1 ( 1 is the rv)
+//        // probably not needed, SP already set
+//        callCommand.append("    @" +nArgs)               ; callCommand.append("\n");
+//        callCommand.append("    D=A-1")                  ; callCommand.append("\n");
+//        callCommand.append("    @SP")                    ; callCommand.append("\n");
+//        callCommand.append("    M=M-D")                  ; callCommand.append("\n");
+
+
+        return callCommand.toString();
+    }
+
+    private String generateReturn(){
+        // 1. push returnAddress
+        // 2. push LCL
+        // 3. push ARG
+        // 4. push THIS
+        // 5. push THAT
+
+        int id = index++;
+        StringBuilder returnCommand = new StringBuilder();
+        returnCommand.append("    // generate return\n")   ;
+
+        // save: endFrame = LCL
+        returnCommand.append("    @LCL")                   ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // save: retAddr = *(endFrame-5) // TODO:check logic !
+        returnCommand.append("    @5")                     ; returnCommand.append("\n");
+        returnCommand.append("    D=A")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    D=M-D")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=D")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @retAddr")               ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // copy return value to ARG ( will replace ARG0 with return value )
+        returnCommand.append("    @SP")                    ; returnCommand.append("\n");
+        returnCommand.append("    M=M-1")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @ARG")                   ; returnCommand.append("\n");
+        returnCommand.append("    A=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // sp = ARG+1
+        returnCommand.append("    @ARG")                   ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @SP")                    ; returnCommand.append("\n");
+        returnCommand.append("    M=D+1")                  ; returnCommand.append("\n");
+
+        // restore THAT
+        returnCommand.append("    @1")                     ; returnCommand.append("\n");
+        returnCommand.append("    D=A")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    D=M-D")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=D")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @THAT")                  ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // restore THIS
+        returnCommand.append("    @2")                     ; returnCommand.append("\n");
+        returnCommand.append("    D=A")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    D=M-D")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=D")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @THIS")                  ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // restore ARG
+        returnCommand.append("    @3")                     ; returnCommand.append("\n");
+        returnCommand.append("    D=A")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    D=M-D")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=D")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @ARG")                   ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // restore LCL
+        returnCommand.append("    @4")                     ; returnCommand.append("\n");
+        returnCommand.append("    D=A")                    ; returnCommand.append("\n");
+        returnCommand.append("    @endFrame")              ; returnCommand.append("\n");
+        returnCommand.append("    D=M-D")                  ; returnCommand.append("\n");
+        returnCommand.append("    A=D")                    ; returnCommand.append("\n");
+        returnCommand.append("    D=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    @LCL")                   ; returnCommand.append("\n");
+        returnCommand.append("    M=D")                    ; returnCommand.append("\n");
+
+        // return to caller after setup back the environment
+        returnCommand.append("    @retAddr")               ; returnCommand.append("\n");
+        returnCommand.append("    A=M")                    ; returnCommand.append("\n");
+        returnCommand.append("    0;JMP")                  ; returnCommand.append("\n");
+
+        return returnCommand.toString();
+    }
+
+    private String pushValue(){
+        // pushing to stack and sp++
+        StringBuilder sb = new StringBuilder();
+        sb.append("    @SP")                        ; sb.append("\n");
+        sb.append("    A=M")                        ; sb.append("\n");
+        sb.append("    M=D")                        ; sb.append("\n");
+        sb.append("    @SP")                        ; sb.append("\n");
+        sb.append("    M=M+1")                      ; sb.append("\n\n");
+        return sb.toString();
+    }
 
 
     public void addAsm(Command command) {
@@ -419,6 +616,17 @@ public class CodeWriter {
         }
         if  (command.getCommandType() == CommandType.C_IF) {
             outputAsmCode += generateIfGoto(command.getJumpDestination());
+        }
+        if  (command.getCommandType() == CommandType.C_FUNCTION) {
+            outputAsmCode += generateFunction(command.getFunctionName(),
+                                              command.getLocalVars());
+        }
+        if  (command.getCommandType() == CommandType.C_CALL) {
+            outputAsmCode += generateCall(command.getFunctionName(),
+                    command.getnArgs());
+        }
+        if  (command.getCommandType() == CommandType.C_RETURN) {
+            outputAsmCode += generateReturn();
         }
 
 
