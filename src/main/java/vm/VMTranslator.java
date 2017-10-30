@@ -4,6 +4,7 @@ import ch.qos.logback.core.net.SyslogOutputStream;
 import hack.core.Code;
 import sun.misc.VM;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +16,23 @@ import java.util.stream.Stream;
 
 /**
  * Created by chenchuk on 10/21/17.
+ * VMTranslator for single *.vm file or a directory.
+ *
+ * if directory supplied then a Main.vm file must exists with main function
+ * - bootstrap (set env)
+ * - call OS function Sys.init()
+ * - Sys.init calls Main.main and enter infinite loop
+ *
  */
 public class VMTranslator {
 
-    private static List<String> fileList;
     private Parser parser;
     private CodeWriter codeWriter;
     private Command currentCommand;
+
+    private String directoryName;
+    private List<String> vmFiles;
+    private Boolean addInitCode;
 
     private String inputFile;    // *.vm
     private String vmCode;       // input
@@ -29,28 +40,49 @@ public class VMTranslator {
     private String outputFile;   // *.asm
     private String asmCode;      // output
 
-    public VMTranslator(){
-        asmCode = "";
-        inputFile = "./3.vm";
-        outputFile = "./3.asm";
-        vmCode = readInputFile(inputFile);
-        CodeWriter codeWriter = new CodeWriter(inputFile, asmCode);
-        Parser parser = new Parser(vmCode, codeWriter);
-        parser.parse();
+    public VMTranslator(String filename){
 
-        writeOutputFile(outputFile, codeWriter.getOutputAsmCode());
+        addInitCode = true;
+        asmCode = "";
+
+        // list of 1 or more files to process
+        vmFiles = getVmFiles(filename);
+        outputFile = getOutputFilename(filename);
+        System.out.println(vmFiles);
+        System.out.println(outputFile);
+
+        // looping all files in list
+        for (String vmFilename : vmFiles){
+            String currentAsmCode = "";
+            System.out.println("doing :" + vmFilename);
+
+            // open a file and read vm code
+            vmCode = readInputFile(vmFilename);
+            CodeWriter codeWriter = new CodeWriter(vmFilename);
+
+            //  if multiple files exists, adding INIT code ONLY once
+            if (vmFiles.size() > 1 && addInitCode == true){
+                System.out.println("processing more than 1 file, writing INIT code in first iteration.");
+                addInitCode = false;
+                codeWriter.writeInit();
+            }
+
+            // add comment to recognize filename in output asm code
+            codeWriter.writeFilenameComment(vmFilename);
+
+            // parser to handle 1 file
+            Parser parser = new Parser(vmCode, codeWriter);
+            parser.parse();
+
+            // add generated asm code
+            asmCode += codeWriter.getOutputAsmCode();
+            System.out.println("done : " + asmCode.length());
+        }
+
+        System.out.print("doneweeeee : " + asmCode.length());
+        writeOutputFile(outputFile, asmCode);
+
     }
-//    public VMTranslator(List<String> fileList){
-//        asmCode = "";
-//        inputFile = "./1.vm";
-//        outputFile = "./1.asm";
-//        vmCode = readInputFile(inputFile);
-//        CodeWriter codeWriter = new CodeWriter(inputFile, asmCode);
-//        Parser parser = new Parser(vmCode, codeWriter);
-//        parser.parse();
-//
-//        writeOutputFile(outputFile, codeWriter.getOutputAsmCode());
-//    }
 
     private String readInputFile (String filename) {
         // returns String from input file
@@ -63,7 +95,7 @@ public class VMTranslator {
     }
 
     private void writeOutputFile (String filename, String code) {
-        System.out.print(code);
+        //System.out.print(code);
         // write String to input file ( first split to lines )
         List<String> fileContent;
         try{
@@ -73,22 +105,58 @@ public class VMTranslator {
         }catch (IOException e){ e.printStackTrace();}
     }
 
-    public static void main(String[] args) throws Exception{
-        fileList = new ArrayList<>();
-        if (args.length == 0){
-            System.out.println("no args, current vm files in pwd:");
-            System.out.println("NOT YET IMPLEMENTED");
-//            Files.newDirectoryStream(Paths.get("."),
-//                    path -> path.toString().endsWith(".vm"))
-//                    .forEach(x -> fileList.add(x.toString()));
-//            System.out.println(fileList);
-//            new VMTranslator(fileList);
-        } else if(args.length == 1){
-            System.out.println(args[0]);
-            new VMTranslator();
+
+    private List<String> getVmFiles(String userInput){
+        List<String> list = new ArrayList<>();
+        File file = new File(userInput);
+        // creating a list of dirname/*.vm files
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                String filename = f.getName();
+                if (filename.contains(".vm")) {
+                    list.add(userInput + "/" +filename);
+                }
+            }
         } else {
-            System.out.println("too many args");
+            // single *.vm file
+            list.add("./" +userInput);
+        }
+        return list;
+    }
+
+    public String getOutputFilename(String userInput){
+        File file = new File(userInput);
+        if (file.isDirectory())
+            return "./" +userInput+ ".asm";
+        else
+            return "./" +userInput.replaceAll(".vm",".asm");
+    }
+
+
+
+
+
+
+    public static void main(String[] args) throws Exception{
+//        fileList = new ArrayList<>();
+//        if (args.length == 0){
+////            System.out.println("no args, current vm files in pwd:");
+//            new VMFilesReader(args[0]);
+//            fileList = VMFilesReader.
+////            System.out.println("NOT YET IMPLEMENTED");
+////            Files.newDirectoryStream(Paths.get("."),
+////                    path -> path.toString().endsWith(".vm"))
+////                    .forEach(x -> fileList.add(x.toString()));
+//            System.out.println(fileList);
+            new VMTranslator(args[0]);
+//        } else if(args.length == 1){
+//            System.out.println(args[0]);
+
+
+//            new VMFilesReader(args[0]);
+//        } else {
+//            System.out.println("too many args");
         }
 
-    }
+//    }
 }

@@ -13,18 +13,13 @@ public class CodeWriter {
     private Command command;
     private Integer index;
 
-//    0 SP
-//1 LCL
-//2 ARG
-//3 THIS
-//4 THAT
 
     // generate assembly code
 
     // local, argument, this, that:  mapped directly on the Hack RAM
     private Map<String, String> memorySegment;
 
-    public CodeWriter(String filename, String outputAsmCode){
+    public CodeWriter(String filename){
 
         // only filename for 'static' handling
         this.prefix = filename.substring(0,filename.indexOf('.'));
@@ -32,7 +27,7 @@ public class CodeWriter {
             this.prefix = prefix.substring(filename.indexOf('/')+1);
         }
 
-        this.outputAsmCode = outputAsmCode;
+        outputAsmCode = "" ;
         this.index = 0;
         memorySegment = new HashMap<String, String>();
         memorySegment.put("local",    "LCL");   // RAM [1]
@@ -372,14 +367,7 @@ public class CodeWriter {
         return ifGotoCommand.toString();
     }
 
-//    // function is just a label (call/return should implement the logic
-//    private String generateFunction(String name, Integer numOfLocalVars){
-//        StringBuilder functionCommand = new StringBuilder();
-//        functionCommand.append("    // generate function with " +numOfLocalVars+ " local vars\n");
-//        functionCommand.append("(" +name+ ")")               ; functionCommand.append("\n\n");
-//        return functionCommand.toString();
-//    }
-    // function is a label (call/return should implement the logic
+    // function is a label,
     // needs to initialize nVars to '0'
     private String generateFunction(String name, Integer nVars){
         StringBuilder functionCommand = new StringBuilder();
@@ -392,19 +380,20 @@ public class CodeWriter {
         functionCommand.append("    M=D");                      functionCommand.append("\n");
         functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
         functionCommand.append("    M=0");                      functionCommand.append("\n");
-//        functionCommand.append("(INIT_LOCAL_VARS_" +name+ ")"); functionCommand.append("\n");
+
+        // init local vars to 0
         functionCommand.append("(" +name+ "$init_locals)"); functionCommand.append("\n");
         functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
         functionCommand.append("    D=M");                      functionCommand.append("\n");
         functionCommand.append("    @nvars_" +name);            functionCommand.append("\n");
         functionCommand.append("    D=M-D");                    functionCommand.append("\n");
-//        functionCommand.append("    @END_LOCAL_VARS_" +name);   functionCommand.append("\n");
+
         functionCommand.append("    @" +name+ "$end_init_locals");   functionCommand.append("\n");
         functionCommand.append("    D;JEQ");                    functionCommand.append("\n");
         functionCommand.append("    @counter_" +name);          functionCommand.append("\n");
         functionCommand.append("    M=M+1");                    functionCommand.append("\n\n");
 
-        // push constant 0
+        // var[n] = 0
         functionCommand.append("    @0");                       functionCommand.append("\n");
         functionCommand.append("    D=A");                      functionCommand.append("\n");
         functionCommand.append("    @SP");                      functionCommand.append("\n");
@@ -412,14 +401,13 @@ public class CodeWriter {
         functionCommand.append("    M=D");                      functionCommand.append("\n");
         functionCommand.append("    @SP");                      functionCommand.append("\n");
         functionCommand.append("    M=M+1");                    functionCommand.append("\n\n");
-        // done push constant 0
-//        functionCommand.append("    @INIT_LOCAL_VARS_" +name);  functionCommand.append("\n");
+        // done var[n] = 0
+
         functionCommand.append("    @" +name+ "$init_locals");  functionCommand.append("\n");
         // repeat nVar times
         functionCommand.append("    0;JMP");                    functionCommand.append("\n");
 
         functionCommand.append("("+name+ "$end_init_locals)");  functionCommand.append("\n\n");
-//        functionCommand.append("(END_LOCAL_VARS_" +name+ ")");  functionCommand.append("\n\n");
         return functionCommand.toString();
     }
 
@@ -436,7 +424,6 @@ public class CodeWriter {
         StringBuilder callCommand = new StringBuilder();
         callCommand.append("    // generate call " +functionName+ " " +nArgs+ " (id: " +id+ ")\n");
         callCommand.append("    @" +functionName+ "$ret." +id)              ; callCommand.append("\n");
-//        callCommand.append("    @END_" +functionName+ "_" +id)              ; callCommand.append("\n");
         callCommand.append("    D=A")                    ; callCommand.append("\n");
         callCommand.append(pushValue())                  ; callCommand.append("\n");
         callCommand.append("    @LCL")                   ; callCommand.append("\n");
@@ -469,28 +456,18 @@ public class CodeWriter {
         callCommand.append("    @" +functionName)        ; callCommand.append("\n");
         callCommand.append("    0;JMP")                    ; callCommand.append("\n");
 
-
+        // set return label to get jumped here when function returns
         callCommand.append("(" +functionName+ "$ret." +id+ ")")             ; callCommand.append("\n\n");
-//        callCommand.append("(END_" +functionName+ "_" +id+ ")")             ; callCommand.append("\n");
-
-
-//        // set sp=sp-nArgs+1 ( 1 is the rv)
-//        // probably not needed, SP already set
-//        callCommand.append("    @" +nArgs)               ; callCommand.append("\n");
-//        callCommand.append("    D=A-1")                  ; callCommand.append("\n");
-//        callCommand.append("    @SP")                    ; callCommand.append("\n");
-//        callCommand.append("    M=M-D")                  ; callCommand.append("\n");
-
-
         return callCommand.toString();
     }
 
     private String generateReturn(){
-        // 1. push returnAddress
-        // 2. push LCL
-        // 3. push ARG
-        // 4. push THIS
-        // 5. push THAT
+        // 1. save returnAddress
+        // 2. restore LCL
+        // 3. restore ARG
+        // 4. restore THIS
+        // 5. restore THAT
+        // jump
 
         int id = index++;
         StringBuilder returnCommand = new StringBuilder();
@@ -587,6 +564,24 @@ public class CodeWriter {
     }
 
 
+    public void writeFilenameComment(String filename){
+        outputAsmCode += "\n\n//\n// FILE: " + filename + "\n//\n\n";
+    }
+
+    public void writeInit(){
+        // init sp=256
+        // calls Sys.init()
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\n//\n// BOOTSTRAP CODE\n//\n\n");
+        sb.append("    @256")                    ; sb.append("\n");
+        sb.append("    D=A")                     ; sb.append("\n");
+        sb.append("    @SP")                     ; sb.append("\n");
+        sb.append("    M=D")                     ; sb.append("\n");
+        sb.append(generateCall("Sys.init", 0));
+        outputAsmCode += sb.toString();
+    }
+
+
     public void addAsm(Command command) {
         StringBuilder sb = new StringBuilder();
         if (command.getCommandType() == CommandType.C_PUSH) {
@@ -628,12 +623,6 @@ public class CodeWriter {
         if  (command.getCommandType() == CommandType.C_RETURN) {
             outputAsmCode += generateReturn();
         }
-
-
-        //System.out.println(command.getArg1());
-
-                //outputAsmCode += sb.toString();
-            //System.out.println(outputAsmCode);
     }
 }
 

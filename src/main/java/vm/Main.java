@@ -29,7 +29,7 @@ public class Main {
         outputFile = "vm-examples/StackTest.asm";
         //vmCode = ExampleCode.Ptr;
         vmCode = readInputFile(inputFile);
-        CodeWriter codeWriter = new CodeWriter(inputFile, asmCode);
+        //CodeWriter codeWriter = new CodeWriter(inputFile, asmCode);
         Parser parser = new Parser(vmCode, codeWriter);
         parser.parse();
         //Command currentCommand = new Command();
@@ -60,6 +60,9 @@ public class Main {
             Files.write(Paths.get(filename), fileContent);
         }catch (IOException e){ e.printStackTrace();}
     }
+
+
+
 
 
 
