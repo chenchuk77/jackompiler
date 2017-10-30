@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="24997355-a7c8-40ce-aeb6-55d0219dc477" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/vm/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/vm/VMFilesReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/vm/arithmatic.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/vm/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/vm/Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/vm/VMTranslator.java" afterPath="$PROJECT_DIR$/src/main/java/vm/VMTranslator.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -58,8 +54,18 @@
       <file leaf-file-name="VMTranslator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/vm/VMTranslator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="66" column="57" lean-forward="false" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
+            <state relative-caret-position="83">
+              <caret line="124" column="13" lean-forward="false" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExampleCode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/vm/ExampleCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1722">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -370,7 +376,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.VMTranslator FibonacciElement">
+  <component name="RunManager" selected="Application.VMTranslator BasicLoop">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -853,26 +859,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="VMTranslator XXX" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="vm.VMTranslator" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="XXX" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-rest-service" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="VMTranslator singlefile vmcode.vm" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -893,13 +879,33 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="VMTranslator BasicLoop" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="vm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="vm.VMTranslator" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="BasicLoop" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="gs-rest-service" />
+      <envs />
+      <method />
+    </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.Application" />
       <item index="1" class="java.lang.String" itemvalue="Application.VMTranslator" />
       <item index="2" class="java.lang.String" itemvalue="Application.VMFileReader" />
       <item index="3" class="java.lang.String" itemvalue="Application.VMTranslator FibonacciElement" />
-      <item index="4" class="java.lang.String" itemvalue="Application.VMTranslator XXX" />
-      <item index="5" class="java.lang.String" itemvalue="Application.VMTranslator singlefile vmcode.vm" />
+      <item index="4" class="java.lang.String" itemvalue="Application.VMTranslator singlefile vmcode.vm" />
+      <item index="5" class="java.lang.String" itemvalue="Application.VMTranslator BasicLoop" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -1001,11 +1007,18 @@
       <option name="project" value="LOCAL" />
       <updated>1509376887872</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Fully working project in maven structure.&#10;TODO: make flat folder (no packages for submission)">
+      <created>1509388062041</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1509388062041</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165387000" />
+    <option name="totallyTimeSpent" value="167167000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1021,7 +1034,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.51508623" sideWeight="0.41902962" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33081895" sideWeight="0.4221802" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.077504724" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1036,8 +1049,8 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.51508623" sideWeight="0.5809704" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49137932" sideWeight="0.5658475" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33081895" sideWeight="0.57781976" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49137932" sideWeight="0.563327" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.4952741" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31465518" sideWeight="0.763075" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21991178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1164,7 +1177,8 @@
     <MESSAGE value="goto, labels, if-goto.&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator" />
     <MESSAGE value="function calls and return successfulle&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator&#10;TODO: multiple files&#10;TODO: static handling" />
     <MESSAGE value="fibonacciElement successfully, with handling multiple files&#10;TODO: fix bug with comments&#10;TODO: static handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="fibonacciElement successfully, with handling multiple files&#10;TODO: fix bug with comments&#10;TODO: static handling" />
+    <MESSAGE value="Fully working project in maven structure.&#10;TODO: make flat folder (no packages for submission)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fully working project in maven structure.&#10;TODO: make flat folder (no packages for submission)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1185,7 +1199,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vm-examples/FibonacciSeries.vm" />
     <entry file="file://$PROJECT_DIR$/vm-examples/FibonacciSeries.tst" />
     <entry file="file://$PROJECT_DIR$/vm-examples/BasicLoopVME.tst" />
     <entry file="file://$PROJECT_DIR$/vm-examples/FibonacciSeries.asm" />
@@ -1316,10 +1329,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/vm/ExampleCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1722">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/vm/VMTranslator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="66" column="57" lean-forward="false" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
+        <state relative-caret-position="83">
+          <caret line="124" column="13" lean-forward="false" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
           <folding />
         </state>
       </provider>
