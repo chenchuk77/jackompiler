@@ -93,15 +93,17 @@ public class Parser {
     // 3rd word in command as integer
     public Integer arg2 (String commandString) {
         String[] s = commandString.split(" ");
-        Integer arg2value = Integer.parseInt(s[2]);
+        Integer arg2value = Integer.parseInt(s[2].trim());
         return arg2value;
     }
 
 
     public void advance(){
-        currentCommand = (String) iterator.next();
         // Reads the next command from the input and makes it the current
         // command. Should be called only if hasMoreCommands() is true.
+        // removing commments
+        String vmInstruction = (String) iterator.next();
+        currentCommand = vmInstruction.replaceAll("//","");
     }
 
     // transform the non empty source code into list of vm commands

@@ -48,13 +48,15 @@ public class VMTranslator {
         // list of 1 or more files to process
         vmFiles = getVmFiles(filename);
         outputFile = getOutputFilename(filename);
-        System.out.println(vmFiles);
-        System.out.println(outputFile);
+        System.out.println();
+        System.out.println("VMTranslator initialized");
+        System.out.println("VM files: " +vmFiles);
+        System.out.println("Output asm file: " +outputFile);
+        System.out.println();
 
         // looping all files in list
         for (String vmFilename : vmFiles){
             String currentAsmCode = "";
-            System.out.println("doing :" + vmFilename);
 
             // open a file and read vm code
             vmCode = readInputFile(vmFilename);
@@ -62,10 +64,11 @@ public class VMTranslator {
 
             //  if multiple files exists, adding INIT code ONLY once
             if (vmFiles.size() > 1 && addInitCode == true){
-                System.out.println("processing more than 1 file, writing INIT code in first iteration.");
+                System.out.println("adding bootstrap code");
                 addInitCode = false;
                 codeWriter.writeInit();
             }
+            System.out.println("processing file: " +vmFilename);
 
             // add comment to recognize filename in output asm code
             codeWriter.writeFilenameComment(vmFilename);
@@ -76,11 +79,11 @@ public class VMTranslator {
 
             // add generated asm code
             asmCode += codeWriter.getOutputAsmCode();
-            System.out.println("done : " + asmCode.length());
         }
 
-        System.out.print("doneweeeee : " + asmCode.length());
+        System.out.print("Hack assembly code of " +asmCode.length()+ " bytes written to " + outputFile);
         writeOutputFile(outputFile, asmCode);
+        System.out.println();
 
     }
 
