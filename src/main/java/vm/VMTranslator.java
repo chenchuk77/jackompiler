@@ -130,7 +130,7 @@ public class VMTranslator {
     public String getOutputFilename(String userInput){
         File file = new File(userInput);
         if (file.isDirectory())
-            return "./" +userInput+ ".asm";
+            return "./" +userInput+ "/" +userInput+ ".asm";
         else
             return "./" +userInput.replaceAll(".vm",".asm");
     }
