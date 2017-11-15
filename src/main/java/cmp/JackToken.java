@@ -30,6 +30,6 @@ public class JackToken {
 
     @Override
     public String toString() {
-        return String.format("%-10s: %-20s\n", type, name);
+        return String.format("%-12s %-20s\n", type, name);
     }
 }

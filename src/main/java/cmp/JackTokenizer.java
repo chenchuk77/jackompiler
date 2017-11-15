@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,10 +35,48 @@ public class JackTokenizer {
     private List<String> vmFiles;
     private Boolean addInitCode;
 
-    private String inputFile;    // *.vm
+    private String inputFile;      // *.vm
     private String jackCode;       // input
 
+    List<Character> chars;         // chars list of input Jack code
     private List<JackToken> tokens;
+    private Iterator iterator;
+
+    private JackToken currentToken;
+
+
+    // API
+    public Boolean hasMoreTokens(){
+        return iterator.hasNext();
+    }
+
+    // API
+    public void advance(){
+        // get the next token and makes it the current
+        // Should be called only if hasMoreTokens() is true.
+        currentToken = (JackToken) iterator.next();
+    }
+
+    // API
+    public String tokenType(){
+        // get the next token and makes it the current
+        // Should be called only if hasMoreTokens() is true.
+        return currentToken.getType().toString();
+    }
+
+    // non API
+    public String tokenVal(){
+        // get the next token and makes it the current
+        // Should be called only if hasMoreTokens() is true.
+        return currentToken.getName();
+    }
+
+
+
+
+//    public void init(){
+//        iterator = tokens.iterator();
+//    }
 
 //    private String outputFile;   // *.asm
 //    private String asmCode;      // output
@@ -53,21 +92,31 @@ public class JackTokenizer {
 
         // after removing comments
         String jackNoComments = removeComments(jackCode);
-        System.out.println(removeComments(jackCode));
+        //System.out.println(removeComments(jackCode));
 
         // convert to list of chars for iteration
-        List<Character> chars = splitToListOfChar(jackNoComments);
-        System.out.println(chars);
+        chars = splitToListOfChar(jackNoComments);
+        //System.out.println(chars);
 
         tokens = new ArrayList<>();
+        tokenize();
 
+        //System.out.println(tokens);
+
+        // setup the iterator for the user
+        currentToken = null;
+        iterator = tokens.iterator();
+        advance();
+
+    }
+
+    // tokenizing the input chars
+    private void tokenize(){
         while (chars != null && !chars.isEmpty()) {
-            System.out.println(chars.size());
 
             // check if starting with symbol ( symbol terminates a token )
             if (isSymbol(chars.get(0))) {
-                System.out.println("symbol found: " + chars.get(0));
-                tokens.add(new JackToken("" + chars.get(0), TokenType.SYMBOL));
+                tokens.add(new JackToken("" + chars.get(0), TokenType.symbol));
                 chars.remove(0);
                 eatWhiteSpace(chars);
                 continue;
@@ -84,7 +133,7 @@ public class JackTokenizer {
                     string_const = string_const + chars.get(0);
                     chars.remove(0);
                 }
-                tokens.add(new JackToken(string_const, TokenType.STRING_CONST));
+                tokens.add(new JackToken(string_const, TokenType.string_const));
                 chars.remove(0);    // remove terminating [ " ]
                 eatWhiteSpace(chars);
                 continue;
@@ -100,18 +149,16 @@ public class JackTokenizer {
 
             // word found, check if known keyword
             if (isKeyword(word)) {
-                tokens.add(new JackToken(word, TokenType.KEYWORD));
+                tokens.add(new JackToken(word, TokenType.keyword));
             } else if (isNumber(word)){
-                tokens.add(new JackToken(word, TokenType.INT_CONST));
+                tokens.add(new JackToken(word, TokenType.int_const));
             } else {
-                tokens.add(new JackToken(word, TokenType.IDENTIFIER));
+                tokens.add(new JackToken(word, TokenType.identifier));
             }
             eatWhiteSpace(chars);
             continue;
 
         }
-
-        System.out.println("TOTAL: " + tokens);
 
     }
 
@@ -325,7 +372,23 @@ public class JackTokenizer {
 ////                    path -> path.toString().endsWith(".vm"))
 ////                    .forEach(x -> fileList.add(x.toString()));
 //            System.out.println(fileList);
-        new JackTokenizer(args[0]);
+        //new JackTokenizer(args[0]);
+        JackTokenizer tokenizer = new JackTokenizer(args[0]);
+//        System.out.println(tokenizer.hasMoreTokens());
+//        System.out.println(tokenizer.tokenType());
+//        tokenizer.advance();
+//        System.out.println(tokenizer.tokenType());
+//        tokenizer.advance();
+//        System.out.println(tokenizer.tokenType());
+//        tokenizer.advance();
+//        System.out.println(tokenizer.tokenType());
+//        tokenizer.advance();
+
+        while (tokenizer.hasMoreTokens()){
+            System.out.println(tokenizer.tokenType() + "-" + tokenizer.tokenVal());
+            tokenizer.advance();
+
+        }
 //        } else if(args.length == 1){
 //            System.out.println(args[0]);
 
