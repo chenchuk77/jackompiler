@@ -2,6 +2,17 @@ package cmp;
 
 /**
  * Created by chenchuk on 11/15/17.
+
+ // NO JACK METHODS:
+ // type
+ // className
+ // subroutineName
+ // variableName
+ // statements
+ // soubroutineCall
+
+ *
+ *
  */
 public class CompilationEngine {
 
@@ -9,25 +20,10 @@ public class CompilationEngine {
     private String padder = "" ;
 
     public CompilationEngine (String filename) {
-//        while (tokenizer.hasMoreTokens()) {
-//            System.out.println(tokenizer.tokenType() + "-" + tokenizer.tokenVal());
-//            tokenizer.advance();
-//        }
         tokenizer = new JackTokenizer(filename);
         compileClass();
 
     }
-
-
-    // NO JACK METHODS:
-    // type
-    // className
-    // subroutineName
-    // variableName
-    // statements
-    // soubroutineCall
-
-
 
     // Compiles a complete class.
     private void compileClass(){
@@ -35,8 +31,6 @@ public class CompilationEngine {
         eat("class");
         eat(tokenizer.tokenVal());
         eat("{");
-        //eat(tokenizer.tokenVal());
-        //compileVarDec();
         CompileClassVarDec();
         CompileSubroutine();
         eat("}");
@@ -54,15 +48,11 @@ public class CompilationEngine {
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
                 eat(tokenizer.tokenVal());    // varname2, varname3, etc ....
-//                emitBackString("classVarDec");
             }
             eat(";");           // ;.
             emitBackString("classVarDec");
-
         }
-//        emitBackString("classVarDec");
     }
-
 
     // Compiles a complete method, function, or constructor.
     private void CompileSubroutine(){
@@ -71,8 +61,6 @@ public class CompilationEngine {
         while (tokenizer.tokenVal().equals("method") ||
                tokenizer.tokenVal().equals("function") ||
                tokenizer.tokenVal().equals("constructor")) {
-            //System.out.println("fff=" +tokenizer.tokenVal());
-
             emitString("subroutineDec");
             eat(tokenizer.tokenVal());     // sub-type
             eat(tokenizer.tokenVal());     // sub-return-type (classname / void)
@@ -82,7 +70,6 @@ public class CompilationEngine {
             eat(")");
             emitString("subroutineBody");
             eat("{");
-
             // subroutineBody: '{' varDec* statements '}'
             if (tokenizer.tokenVal().equals("var")) {
                 compileVarDec();
@@ -90,48 +77,47 @@ public class CompilationEngine {
             compileStatements();
             eat("}");
             emitBackString("subroutineBody");
-
             emitBackString("subroutineDec");
-            //System.out.println("fff=" +tokenizer.tokenVal());
         }
     }
 
     // Compiles a (possibly empty) parameter list, not including the enclosing “()”.
     private void compileParameterList(){
         emitString("parameterList"); // prints also on empty list
-//        if (tokenizer.tokenVal().equals(")")){return;} // empty list
-
         // type: 'int' | 'char' | 'boolean' | className
         while ( tokenizer.tokenVal().equals("int") ||
                 tokenizer.tokenVal().equals("char") ||
                 tokenizer.tokenVal().equals("boolean") ||
                 tokenizer.tokenType().equals(TokenType.identifier)){
-
             eat(tokenizer.tokenVal());    // type
             eat(tokenizer.tokenVal());    // varname
             if (tokenizer.tokenVal().equals(",")){
                 eat(",");
-            } else {
-                break;
-            }
+            } else { break; }
         }
         emitBackString("parameterList");
     }
 
     // Compiles a var declaration.
-    // GRAMMER :
     // varDec: 'var' type varName (',' varName)* ';'
     private void compileVarDec(){
-        if (!tokenizer.tokenVal().equals("var")){return;}// empty varDec list
-
-        emitString("varDec");
+        if (!tokenizer.tokenVal().equals("var")){
+            emitString("varDec");
+            emitBackString("varDec");
+            return;
+        } // empty varDec list
         while (tokenizer.tokenVal().equals("var")){
+            emitString("varDec");
             eat("var");         // var
             eat(tokenizer.tokenVal());    // type
             eat(tokenizer.tokenVal());    // varname
-            eat(";");           // ;
+            while (tokenizer.tokenVal().equals(",")){
+                eat(",");
+                eat(tokenizer.tokenVal());    // varname2, varname3, etc ....
+            }
+            eat(";");           // ;.
+            emitBackString("varDec");
         }
-        emitBackString("varDec");
     }
 
     // Compiles a sequence of statements, not including the enclosing “{}”.
@@ -142,31 +128,13 @@ public class CompilationEngine {
                 tokenizer.tokenVal().equals("while") ||
                 tokenizer.tokenVal().equals("do") ||
                 tokenizer.tokenVal().equals("return")) {
-
             if (tokenizer.tokenVal().equals("let"))    { compileLet();    }
             if (tokenizer.tokenVal().equals("if"))     { compileIf();     }
             if (tokenizer.tokenVal().equals("while"))  { compileWhile();  }
             if (tokenizer.tokenVal().equals("do"))     { compileDo();     }
             if (tokenizer.tokenVal().equals("return")) { compileReturn(); }
-
         }
         emitBackString("statements"); //
-
-
-//            System.out.println("--"+tokenizer.tokenVal());
-//            switch (tokenizer.tokenVal()) {
-//                case "let":    compileLet();
-//                case "if":     compileIf();
-//                case "while":  compileWhile();
-//                case "do":     compileDo();
-//                case "return": compileReturn();
-//                default: System.out.println("error, unknown statement");
-//            }
-
-//        }
-
-        //while (tokenizer.tokenVal().equals("let")){ compileLet();}
-
     }
 
     // Compiles a do statement.
@@ -183,7 +151,6 @@ public class CompilationEngine {
         eat(")");           // ;
         eat(";");           // ;
         emitBackString("doStatement");
-
     }
 
     // Compiles a let statement.
@@ -192,6 +159,12 @@ public class CompilationEngine {
         // type: 'int' | 'char' | 'boolean' | className
         eat(tokenizer.tokenVal());    // let
         eat(tokenizer.tokenVal());    // identifier
+        if (tokenizer.tokenVal().equals("[")) {
+            eat("[");
+            compileExpression();
+            eat("]");
+        }
+
         eat("=");           // =
         compileExpression();
         eat(";");           // ;
@@ -200,21 +173,21 @@ public class CompilationEngine {
 
     // Compiles a while statement.
     private void compileWhile(){
-        identForward();
-        eat("while");
+        emitString("whileStatement");
+        eat("while");           // if
         eat("(");
         compileExpression();
         eat(")");
         eat("{");
         compileStatements();
         eat("}");
+        emitBackString("whileStatement");
     }
 
     // Compiles a return statement.
     private void compileReturn(){
         emitString("returnStatement");
         eat(tokenizer.tokenVal());    // return
-
         // expression if not 'return ;'
         if (!tokenizer.tokenVal().equals(";")){
             compileExpression();
@@ -234,6 +207,7 @@ public class CompilationEngine {
         compileStatements();
         eat("}");
         if (tokenizer.tokenVal().equals("else")) {
+            eat("else");
             eat("{");
             compileStatements();
             eat("}");
@@ -245,9 +219,7 @@ public class CompilationEngine {
     private void compileExpression(){
         emitString("expression");
         compileTerm();
-//        eat(tokenizer.tokenVal());    // assuming expr is just another identifier TODO: FIX
         emitBackString("expression");
-
     }
 
     // Compiles a term. This routine is faced with a slight difficulty when trying to decide
@@ -264,6 +236,8 @@ public class CompilationEngine {
 //        }
 
         eat(tokenizer.tokenVal());    // assuming expr is just another identifier TODO: FIX
+        emitBackString("term");
+
 
 //        eat(tokenizer.tokenVal());    // the term
 //
@@ -284,7 +258,6 @@ public class CompilationEngine {
 //        eat("(");           // ;
 //        eat(")");           // ;
 //        eat(";");           // ;
-        emitBackString("term");
 
 
 
@@ -308,24 +281,8 @@ public class CompilationEngine {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // XML output functions
+    //
     // identing right the XML output each method call
     private void identForward(){
         padder += "  ";
@@ -352,56 +309,20 @@ public class CompilationEngine {
     }
 
     // comparing input to fixed string
-    private boolean eat (String tokenVal){
+    private void eat (String tokenVal){
         if (tokenizer.tokenVal().equals(tokenVal)){
             System.out.println(padder + "<" +tokenizer.tokenType()+ "> " +
                                              tokenizer.tokenVal()+
                                         " </"+tokenizer.tokenType()+ ">");
-
             if (tokenizer.hasMoreTokens()){
                 tokenizer.advance();
             }
-            return true;
         }
         else {
             System.out.println("error: expecting " + tokenVal + ", found: " + tokenizer.tokenVal());
-            return false;
         }
     }
 
-//    // comparing input token
-//    private boolean eat (JackToken token){
-//        if (tokenizer.tokenType().equals(TokenType.identifier)){
-//            System.out.println(padder + "<" +tokenizer.tokenType()+ ">" +
-//                                            tokenizer.tokenVal()+
-//                                            "</"+tokenizer.tokenType()+ ">");
-//        }
-//        if (tokenizer.tokenVal().equals(tokenVal)){
-//            System.out.println(padder + "<" +tokenizer.tokenType()+ ">" +
-//                    tokenizer.tokenVal()+
-//                    "</"+tokenizer.tokenType()+ ">");
-//
-//            tokenizer.advance();
-//            return true;
-//        }
-//        else {
-//            System.out.println("error: expecting " + tokenVal);
-//            return false;
-//        }
-//    }
-//
-
-//    private void eat (String tokenVal){
-//        if (tokenizer.tokenVal().equals(tokenVal)){
-//            System.out.println(padder + "<" +tokenizer.tokenType()+ ">" +
-//                    tokenizer.tokenVal()+
-//                    "</" +tokenizer.tokenType()+ ">");
-//            tokenizer.advance();
-//        }
-//        else {
-//            System.out.println("error: expecting " + tokenVal);
-//        }
-//    }
 
     public static void main(String[] args) {
         //JackTokenizer tokenizer = new JackTokenizer(args[0]);
