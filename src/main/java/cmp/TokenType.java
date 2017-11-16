@@ -7,6 +7,6 @@ public enum TokenType {
     keyword,
     symbol,
     identifier,
-    int_const,
-    string_const
+    integerConstant,
+    stringConstant
 }

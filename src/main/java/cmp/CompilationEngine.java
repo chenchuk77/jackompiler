@@ -2,27 +2,19 @@ package cmp;
 
 /**
  * Created by chenchuk on 11/15/17.
-
- // NO JACK METHODS:
- // type
- // className
- // subroutineName
- // variableName
- // statements
- // soubroutineCall
-
- *
- *
  */
+
 public class CompilationEngine {
 
     private JackTokenizer tokenizer;
     private String padder = "" ;
+    private String compiledXml = "" ;
 
-    public CompilationEngine (String filename) {
-        tokenizer = new JackTokenizer(filename);
+    // ctor gets a tokenizer to parse
+    public CompilationEngine (JackTokenizer tokenizer) {
+        //tokenizer = new JackTokenizer(filename);
+        this.tokenizer = tokenizer;
         compileClass();
-
     }
 
     // Compiles a complete class.
@@ -188,7 +180,6 @@ public class CompilationEngine {
     private void compileReturn(){
         emitString("returnStatement");
         eat(tokenizer.tokenVal());    // return
-        // expression if not 'return ;'
         if (!tokenizer.tokenVal().equals(";")){
             compileExpression();
         }
@@ -219,6 +210,18 @@ public class CompilationEngine {
     private void compileExpression(){
         emitString("expression");
         compileTerm();
+        while (tokenizer.tokenVal().equals("+") ||
+                tokenizer.tokenVal().equals("-") ||
+                tokenizer.tokenVal().equals("*") ||
+                tokenizer.tokenVal().equals("/") ||
+                tokenizer.tokenVal().equals("&") ||
+                tokenizer.tokenVal().equals("|") ||
+                tokenizer.tokenVal().equals("<") ||
+                tokenizer.tokenVal().equals(">") ||
+                tokenizer.tokenVal().equals("=")) {
+            eat(tokenizer.tokenVal());
+            compileTerm();
+        }
         emitBackString("expression");
     }
 
@@ -230,37 +233,44 @@ public class CompilationEngine {
     // this term and should not be advanced over.
     private void compileTerm(){
         emitString("term");
-
-//        if (tokenizer.tokenVal().equals("this")) {
-//            eat("this");
-//        }
-
-        eat(tokenizer.tokenVal());    // assuming expr is just another identifier TODO: FIX
+        if (tokenizer.tokenType().equals("identifier")){
+            eat(tokenizer.tokenVal());
+            if (tokenizer.tokenVal().equals("[")){
+                eat("[");
+                compileExpression();
+                eat("]");
+            } else if (tokenizer.tokenVal().equals("(")){
+                eat("(");
+                compileExpressionList();
+                eat(")");
+            } else if (tokenizer.tokenVal().equals(".")){
+                eat(".");
+                eat(tokenizer.tokenVal());
+                eat("(");
+                compileExpressionList();
+                eat(")");
+            }
+        } else if (tokenizer.tokenType().equals("stringConstant")){
+            eat(tokenizer.tokenVal());
+        } else if (tokenizer.tokenType().equals("integerConstant")){
+            eat(tokenizer.tokenVal());
+        } else if (tokenizer.tokenVal().equals("true") ||
+                tokenizer.tokenVal().equals("false") ||
+                tokenizer.tokenVal().equals("null") ||
+                tokenizer.tokenVal().equals("this")) {
+            eat(tokenizer.tokenVal());
+        } else if (tokenizer.tokenVal().equals("(")){
+            eat("(");
+            compileExpression();
+            eat(")");
+        } else {
+            while (tokenizer.tokenVal().equals("-") ||
+                    tokenizer.tokenVal().equals("~")) {
+                eat(tokenizer.tokenVal());
+                compileTerm();
+            }
+        }
         emitBackString("term");
-
-
-//        eat(tokenizer.tokenVal());    // the term
-//
-//        if (tokenizer.tokenVal().equals("[")){
-//            eat("[");
-//            compileExpression();
-//            eat("]");
-//        } else if (tokenizer.tokenVal().equals(".")){
-//            eat(".");
-//            eat(tokenizer.tokenVal());    // identifier
-//
-//        }
-//
-//
-//
-//
-//        eat("do");           // do
-//        eat("(");           // ;
-//        eat(")");           // ;
-//        eat(";");           // ;
-
-
-
     }
 
     // Compiles a (possibly empty) commaseparated list of expressions.
@@ -279,9 +289,7 @@ public class CompilationEngine {
         emitBackString("expressionList");
     }
 
-
-
-    // XML output functions
+    // XML output methods
     //
     // identing right the XML output each method call
     private void identForward(){
@@ -297,23 +305,33 @@ public class CompilationEngine {
 
     // XML output + identation forword
     private void emitString(String xmlElement){
-        System.out.println(padder + "<" +xmlElement+ ">");
+        compiledXml += padder + "<" +xmlElement+ ">\n";
         identForward();
     }
 
     // XML output + identation backword
     private void emitBackString(String xmlElement){
         identBackward();
-        System.out.println(padder + "</" +xmlElement+ ">");
-
+        compiledXml += padder + "</" +xmlElement+ ">\n";
     }
 
-    // comparing input to fixed string
+    // get the XML output
+    public String getCompiledXml() {
+        return compiledXml;
+    }
+
+
+    // eat and advance
     private void eat (String tokenVal){
         if (tokenizer.tokenVal().equals(tokenVal)){
-            System.out.println(padder + "<" +tokenizer.tokenType()+ "> " +
-                                             tokenizer.tokenVal()+
-                                        " </"+tokenizer.tokenType()+ ">");
+            // replace < with HTML equiv
+            String val = tokenVal;
+            if (tokenVal.equals("<")) val = "&lt;";
+            if (tokenVal.equals(">")) val = "&gt;";
+            if (tokenVal.equals("&")) val = "&amp;";
+            compiledXml += padder + "<" +tokenizer.tokenType()+ "> " +
+                                                    val+
+                                    " </"+tokenizer.tokenType()+ ">\n";
             if (tokenizer.hasMoreTokens()){
                 tokenizer.advance();
             }
@@ -321,12 +339,5 @@ public class CompilationEngine {
         else {
             System.out.println("error: expecting " + tokenVal + ", found: " + tokenizer.tokenVal());
         }
-    }
-
-
-    public static void main(String[] args) {
-        //JackTokenizer tokenizer = new JackTokenizer(args[0]);
-        new CompilationEngine(args[0]);
-
     }
 }

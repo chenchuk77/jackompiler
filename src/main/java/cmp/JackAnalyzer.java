@@ -15,153 +15,86 @@ import java.util.List;
 /**
  * Created by chenchuk on 10/21/17.
  * JackAnalyzer for single *.jack file or a directory.
- *
- * TODO CHANGE INSTRUCTIONS:if directory supplied then a Main.vm file must exists with main function
- * - bootstrap (set env)
- * - call OS function Sys.init()
- * - Sys.init calls Main.main and enter infinite loop
+ * The ctor initialize a new jack tokenizer and a compilation engine
+ * for each file.
+ * an XML output file generated for each source jack file
+ * representing the compiled structure of the jack code
  *
  */
 public class JackAnalyzer {
 
     private JackTokenizer tokenizer;
-
-
-
-    private Parser parser;
-    private CodeWriter codeWriter;
-    private Command currentCommand;
-
-    private String directoryName;
-    private List<String> vmFiles;
-    private Boolean addInitCode;
-
-    private String inputFile;    // *.vm
-    private String vmCode;       // input
-
-    private String outputFile;   // *.asm
-    private String asmCode;      // output
+    private CompilationEngine compiler;
+    private List<String> jackFiles;
+    private String jackCode;       // input
+    //private String outputFile;     // *.asm
 
     public JackAnalyzer(String filename){
-
-        addInitCode = true;
-        asmCode = "";
-
         // list of 1 or more files to process
-        vmFiles = getVmFiles(filename);
-        outputFile = getOutputFilename(filename);
+        jackFiles = getJackFiles(filename);
+        //outputFile = getOutputFilename(filename);
         System.out.println();
-        System.out.println("VMTranslator initialized");
-        System.out.println("VM files: " +vmFiles);
-        System.out.println("Output asm file: " +outputFile);
+        System.out.println("JackAnalyzer initialized");
+        System.out.println("Jack files: " + jackFiles);
         System.out.println();
 
         // looping all files in list
-        for (String vmFilename : vmFiles){
-            String currentAsmCode = "";
-
-            // open a file and read vm code
-            vmCode = readInputFile(vmFilename);
-            CodeWriter codeWriter = new CodeWriter(vmFilename);
-
-            //  if multiple files exists, adding INIT code ONLY once
-            if (vmFiles.size() > 1 && addInitCode == true){
-                System.out.println("adding bootstrap code");
-                addInitCode = false;
-                codeWriter.writeInit();
-            }
-            System.out.println("processing file: " +vmFilename);
-
-            // add comment to recognize filename in output asm code
-            codeWriter.writeFilenameComment(vmFilename);
-
+        for (String jackFilename : jackFiles){
+            System.out.println("processing file: " +jackFilename);
+            String xmlCode = "" ;
             // parser to handle 1 file
-            Parser parser = new Parser(vmCode, codeWriter);
-            parser.parse();
-
-            // add generated asm code
-            asmCode += codeWriter.getOutputAsmCode();
+            tokenizer = new JackTokenizer(jackFilename);
+            //System.out.println(tokenizer.getTokens());
+            compiler = new CompilationEngine(tokenizer);
+            xmlCode = compiler.getCompiledXml();
+            writeOutputFile(xmlFilename(jackFilename), xmlCode);
+            System.out.println("XML code of " + xmlCode.length()+ " bytes written to " + xmlFilename(jackFilename));
+            System.out.println();
         }
-
-        System.out.print("Hack assembly code of " +asmCode.length()+ " bytes written to " + outputFile);
-        writeOutputFile(outputFile, asmCode);
-        System.out.println();
-
-    }
-
-    private String readInputFile (String filename) {
-        // returns String from input file
-        String fileContent = "";
-        try{
-            List<String> lines = Files.readAllLines(Paths.get(filename));
-            fileContent = String.join("\n", lines);
-        }catch (IOException e){ e.printStackTrace();}
-        return fileContent;
     }
 
     private void writeOutputFile (String filename, String code) {
-        //System.out.print(code);
-        // write String to input file ( first split to lines )
         List<String> fileContent;
         try{
-            //fileContent = Arrays.asList(code.split("\\s+\n\\s+"));
+            Files.deleteIfExists(Paths.get(filename));
             fileContent = Arrays.asList(code.split("\n"));
             Files.write(Paths.get(filename), fileContent);
         }catch (IOException e){ e.printStackTrace();}
     }
 
-
-    private List<String> getVmFiles(String userInput){
+    private List<String> getJackFiles(String userInput){
         List<String> list = new ArrayList<>();
         File file = new File(userInput);
         // creating a list of dirname/*.vm files
         if (file.isDirectory()) {
             for (File f : file.listFiles()) {
                 String filename = f.getName();
-                if (filename.contains(".vm")) {
+                if (filename.endsWith(".jack")) {
                     list.add(userInput + "/" +filename);
                 }
             }
         } else {
-            // single *.vm file
+            // single *.jack file
             list.add("./" +userInput);
         }
         return list;
     }
 
-    public String getOutputFilename(String userInput){
-        File file = new File(userInput);
-        if (file.isDirectory())
-            return "./" +userInput+ "/" +userInput+ ".asm";
-        else
-            return "./" +userInput.replaceAll(".vm",".asm");
+
+    public String xmlFilename(String jackFilename){
+        return jackFilename.replaceAll(".jack", ".xml");
     }
 
 
-
-
-
+    public String getOutputFilename(String userInput){
+        File file = new File(userInput);
+        if (file.isDirectory())
+            return "./" +userInput+ "/" +userInput+ ".xml";
+        else
+            return "./" +userInput.replaceAll(".jack",".xml");
+    }
 
     public static void main(String[] args) throws Exception{
-//        fileList = new ArrayList<>();
-//        if (args.length == 0){
-////            System.out.println("no args, current vm files in pwd:");
-//            new VMFilesReader(args[0]);
-//            fileList = VMFilesReader.
-////            System.out.println("NOT YET IMPLEMENTED");
-////            Files.newDirectoryStream(Paths.get("."),
-////                    path -> path.toString().endsWith(".vm"))
-////                    .forEach(x -> fileList.add(x.toString()));
-//            System.out.println(fileList);
             new JackAnalyzer(args[0]);
-//        } else if(args.length == 1){
-//            System.out.println(args[0]);
-
-
-//            new VMFilesReader(args[0]);
-//        } else {
-//            System.out.println("too many args");
         }
-
-//    }
 }
