@@ -44,17 +44,17 @@ public class JackCompiler {
             //System.out.println(tokenizer.getTokens());
             engine = new CompilationEngine(tokenizer);
 
-//            // XML code generation (for unit testing the parser only
-//            xmlCode = engine.getCompiledXml();
-//            writeOutputFile(xmlFilename(jackFilename), xmlCode);
-//            System.out.println("XML code of " + xmlCode.length()+ " bytes written to " + xmlFilename(jackFilename));
-//            System.out.println();
-
-            // VM final code generation
-            vmCode = engine.getCompiledVmCode();
-            writeOutputFile(vmFilename(jackFilename), vmCode);
-            System.out.println("VM code of " + vmCode.length()+ " bytes written to " + vmFilename(jackFilename));
+            // XML code generation (for unit testing the parser only
+            xmlCode = engine.getCompiledXml();
+            writeOutputFile(xmlFilename(jackFilename), xmlCode);
+            System.out.println("XML code of " + xmlCode.length()+ " bytes written to " + xmlFilename(jackFilename));
             System.out.println();
+
+//            // VM final code generation
+//            vmCode = engine.getCompiledVmCode();
+//            writeOutputFile(vmFilename(jackFilename), vmCode);
+//            System.out.println("VM code of " + vmCode.length()+ " bytes written to " + vmFilename(jackFilename));
+//            System.out.println();
         }
     }
 

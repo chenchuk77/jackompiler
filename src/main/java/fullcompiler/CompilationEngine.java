@@ -10,6 +10,9 @@ public class CompilationEngine {
     private String padder = "" ;
     private String compiledXml;
     private String compiledVmCode;
+    private SymbolTable classVarsST;
+    private SymbolTable subVarsST;
+    private String className;
 
     // ctor gets a tokenizer to parse
     public CompilationEngine(JackTokenizer tokenizer) {
@@ -22,9 +25,11 @@ public class CompilationEngine {
 
     // Compiles a complete class.
     private void compileClass(){
+        //one and only init of class-wide symbol table
+        classVarsST = new SymbolTable();
         emitString("class");
         eat("class");
-        eat(tokenizer.tokenVal());
+        className = eat(tokenizer.tokenVal());
         eat("{");
         CompileClassVarDec();
         CompileSubroutine();
@@ -37,29 +42,49 @@ public class CompilationEngine {
         while (tokenizer.tokenVal().equals("static") ||
                tokenizer.tokenVal().equals("field")){
             emitString("classVarDec");
-            eat(tokenizer.tokenVal());    // static/field
-            eat(tokenizer.tokenVal());    // type
-            eat(tokenizer.tokenVal());    // varname
+            Var classVar = new Var();
+            classVar.setKind(eat(tokenizer.tokenVal()));    // static/field
+            classVar.setType(eat(tokenizer.tokenVal()));    // type
+            classVar.setName(eat(tokenizer.tokenVal()));    // varname
+            classVarsST.define(classVar);
+            emitIdentifier(classVarsST.getVar(classVar.getName()), "defined");
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
-                eat(tokenizer.tokenVal());    // varname2, varname3, etc ....
+                Var classVarN = new Var();
+                classVarN.setKind(classVar.getKind());
+                classVarN.setType(classVar.getType());
+                classVarN.setName(eat(tokenizer.tokenVal()));    // varname2, varname3, etc ....
+                classVarsST.define(classVarN);
+                emitIdentifier(classVarsST.getVar(classVarN.getName()), "defined");
+
             }
             eat(";");           // ;.
             emitBackString("classVarDec");
         }
+        System.out.println("classST: \n" +classVarsST);
+
     }
 
     // Compiles a complete method, function, or constructor.
     private void CompileSubroutine(){
+        // init once per subroutine
+        subVarsST = new SymbolTable();
+
         // subroutineDec: ('constructor' | 'function' | 'method') ('void' | type) subroutineName
         // '(' parameterList ')' subroutineBody
         while (tokenizer.tokenVal().equals("method") ||
                tokenizer.tokenVal().equals("function") ||
                tokenizer.tokenVal().equals("constructor")) {
+
+            // argument0 is always 'this'
+            if (tokenizer.tokenVal().equals("method")){
+                subVarsST.define(new Var("this", className, "argument", 0));
+            }
+
             emitString("subroutineDec");
             eat(tokenizer.tokenVal());     // sub-type
             eat(tokenizer.tokenVal());     // sub-return-type (classname / void)
-            eat(tokenizer.tokenVal());     // sub-name
+            subVarsST.setSubName(eat(tokenizer.tokenVal()));     // sub-name
             eat("(");
             compileParameterList();
             eat(")");
@@ -73,7 +98,10 @@ public class CompilationEngine {
             eat("}");
             emitBackString("subroutineBody");
             emitBackString("subroutineDec");
+
+
         }
+        System.out.println("sub:" +subVarsST);
     }
 
     // Compiles a (possibly empty) parameter list, not including the enclosing “()”.
@@ -84,8 +112,13 @@ public class CompilationEngine {
                 tokenizer.tokenVal().equals("char") ||
                 tokenizer.tokenVal().equals("boolean") ||
                 tokenizer.tokenType().equals(TokenType.identifier)){
-            eat(tokenizer.tokenVal());    // type
-            eat(tokenizer.tokenVal());    // varname
+            Var subVar = new Var();
+
+            subVar.setType(eat(tokenizer.tokenVal()));    // type
+            subVar.setName(eat(tokenizer.tokenVal()));    // varname
+            subVar.setKind("argument");
+            subVarsST.define(subVar);
+
             if (tokenizer.tokenVal().equals(",")){
                 eat(",");
             } else { break; }
@@ -330,22 +363,38 @@ public class CompilationEngine {
 
 
     // eat and advance
-    private void eat (String tokenVal){
+    private String eat (String tokenVal){
         if (tokenizer.tokenVal().equals(tokenVal)){
             // replace < with HTML equiv
             String val = tokenVal;
             if (tokenVal.equals("<")) val = "&lt;";
             if (tokenVal.equals(">")) val = "&gt;";
             if (tokenVal.equals("&")) val = "&amp;";
-            compiledXml += padder + "<" +tokenizer.tokenType()+ "> " +
-                                                    val+
-                                    " </"+tokenizer.tokenType()+ ">\n";
+            if (tokenizer.tokenType().equals(TokenType.identifier.toString())){
+                // eating, but not printing
+                System.out.println("id found");
+            } else {
+                compiledXml += padder + "<" +tokenizer.tokenType()+ "> " +
+                                                   val+
+                                        " </"+tokenizer.tokenType()+ ">\n";
+
+            }
+
             if (tokenizer.hasMoreTokens()){
                 tokenizer.advance();
             }
         }
+
         else {
             System.out.println("error: expecting " + tokenVal + ", found: " + tokenizer.tokenVal());
         }
+        return tokenVal;
     }
+    private void emitIdentifier(Var var, String defineOrUsed){
+        compiledXml += padder + "<identifier> " +
+                var + " [" + (defineOrUsed.equals("defined") ? "defined" : "used")+ "]" +
+                " </identifier>\n";
+    }
+
+
 }

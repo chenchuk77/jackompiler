@@ -1,5 +1,6 @@
 package fullcompiler;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,39 +12,100 @@ public class SymbolTable {
     private Integer fieldIndex;
     private Integer argIndex;
     private Integer varIndex;
+    private String subName;        // just for debugging
 
-    Map<String, Integer> symbolsMap;
+    Map<String, Var> vars;
 
 
-    public SymbolTable(){}
 
-    public startSubroutine(){}
+    public SymbolTable(){
+        // init once for the class
+        vars = new HashMap<>();
+        staticIndex = 0;
+        fieldIndex = 0;
+        argIndex = 0;
+        varIndex = 0;
+    }
 
-    public void define(String name ,String type, Kind kind){
+    public void startSubroutine(){
+        // init table for each function
+        //subroutineSymbolsTable = new HashMap<>();
 
     }
-    public int varCounrt(Kind kind){
-        return 1;
+    public void setSubName(String subName){
+        this.subName = subName;
+        // init table for each function
+        //subroutineSymbolsTable = new HashMap<>();
+
     }
 
-    public Kind KindOf (String name){
+    // define a new var in the ST.
+    public void define(String name ,String type, String kind){
+        // build Var with the next free index of that kind
+        Var var = new Var(name, type, kind, incCounter(kind));
+            vars.put(name, var);
+    }
+
+    // direct insert a complete Var, indexing by this class
+    public void define(Var var){
+        define(var.getName(), var.getType(), var.getKind());
+    }
+
+    // return number of vars of a given kind
+    public int varCounrt(String kind){
+            return (int) vars.values()
+                    .stream()
+                    .filter(item -> item.getKind().equals(kind))
+                    .count();
+
+    }
+
+    // lookup a specific var by its name
+    public Var getVar(String name){
+        if (vars.containsKey(name)){
+            return vars.get(name);
+        } else return null;
+
+    }
+
+    // returns the kind by looking at both ST's
+    public String KindOf (String name){
+        // first search in subroutine ST
+        if (vars.containsKey(name)){
+            return vars.get(name).getKind();
+        }
         return null;
     }
-    public Kind TypeOf (String name){
+
+    // returns the kind of a given identifier
+    public String TypeOf (String name){
+        if (vars.containsKey(name)){
+            return vars.get(name).getType();
+        }
         return null;
     }
-    public Kind IndexOf (String name){
+
+    // returns the index of this identifier (of this kind)
+    public Integer IndexOf (String name){
+        if (vars.containsKey(name)){
+            return vars.get(name).getIndex();
+        }
         return null;
     }
 
     // increment and returns the appropriate counter
-    private int incCounter(Kind kind){
-        if (kind == Kind.STATIC) return ++staticIndex;
-        if (kind == Kind.FIELD)  return ++fieldIndex;
-        if (kind == Kind.ARG)    return ++argIndex;
-        if (kind == Kind.VAR)    return ++varIndex;
+    private int incCounter(String kind){
+        if (kind.equals("static"))   return staticIndex++;
+        if (kind.equals("field"))    return fieldIndex++;
+        if (kind.equals("argument")) return argIndex++;
+        if (kind.equals("var"))      return varIndex++;
+        return 0;
     }
 
+    @Override
+    public String toString() {
+        return "" +vars;
+    }
 //
 //    public SymbolTable() {
 //        // generate predefined symbols
@@ -82,7 +144,8 @@ public class SymbolTable {
 //    }
 //
 //    public void show (){
-//        symbolsMap.forEach((symbol, address)-> System.out.println(symbol +": "+ address));
+//        System.out.println("*** vars : " + vars.size() + " elements."+);
+//        vars.forEach((name, var)-> System.out.println(name +": "+ var));
 //    }
 
 }
