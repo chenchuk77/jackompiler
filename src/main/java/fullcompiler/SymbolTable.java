@@ -32,12 +32,12 @@ public class SymbolTable {
         //subroutineSymbolsTable = new HashMap<>();
 
     }
-    public void setSubName(String subName){
-        this.subName = subName;
-        // init table for each function
-        //subroutineSymbolsTable = new HashMap<>();
-
-    }
+//    public void setSubName(String subName){
+//        this.subName = subName;
+//        // init table for each function
+//        //subroutineSymbolsTable = new HashMap<>();
+//
+//    }
 
     // define a new var in the ST.
     public void define(String name ,String type, String kind){

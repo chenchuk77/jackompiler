@@ -7,29 +7,28 @@ package fullcompiler;
 public class CompilationEngine {
 
     private JackTokenizer tokenizer;
+    private VMWriter vmWriter;
+
     private String padder = "" ;
     private String compiledXml;
-    private String compiledVmCode;
-    private SymbolTable classVarsST;
-    private SymbolTable subVarsST;
     private String className;
 
     // ctor gets a tokenizer to parse
     public CompilationEngine(JackTokenizer tokenizer) {
         //tokenizer = new JackTokenizer(filename);
         compiledXml = "";
-        compiledVmCode = "";
         this.tokenizer = tokenizer;
+        vmWriter = new VMWriter();
         compileClass();
     }
 
     // Compiles a complete class.
     private void compileClass(){
         //one and only init of class-wide symbol table
-        classVarsST = new SymbolTable();
         emitString("class");
         eat("class");
-        className = eat(tokenizer.tokenVal());
+        //className = eat(tokenizer.tokenVal());
+        vmWriter.setClassName(eat(tokenizer.tokenVal()));
         emitClass(className);
         eat("{");
         CompileClassVarDec();
@@ -47,17 +46,14 @@ public class CompilationEngine {
             classVar.setKind(eat(tokenizer.tokenVal()));    // static/field
             classVar.setType(eat(tokenizer.tokenVal()));    // type
             classVar.setName(eat(tokenizer.tokenVal()));    // varname
-            classVarsST.define(classVar);
-            emitVarIdenntifier(classVarsST.getVar(classVar.getName()), "defined");
+            vmWriter.addClassVar(classVar);
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
                 Var classVarN = new Var();
                 classVarN.setKind(classVar.getKind());
                 classVarN.setType(classVar.getType());
                 classVarN.setName(eat(tokenizer.tokenVal()));    // varname2, varname3, etc ....
-                classVarsST.define(classVarN);
-                emitVarIdenntifier(classVarsST.getVar(classVarN.getName()), "defined");
-
+                vmWriter.addClassVar(classVarN);
             }
             eat(";");           // ;.
             emitBackString("classVarDec");
@@ -69,7 +65,7 @@ public class CompilationEngine {
     // Compiles a complete method, function, or constructor.
     private void CompileSubroutine(){
         // init once per subroutine
-        subVarsST = new SymbolTable();
+        vmWriter.subInit();
 
         // subroutineDec: ('constructor' | 'function' | 'method') ('void' | type) subroutineName
         // '(' parameterList ')' subroutineBody
@@ -79,7 +75,7 @@ public class CompilationEngine {
 
             // argument0 is always 'this'
             if (tokenizer.tokenVal().equals("method")){
-                subVarsST.define(new Var("this", className, "argument", 0));
+                vmWriter.addSubVar(new Var("this", className, "argument", 0));
             }
 
             emitString("subroutineDec");
@@ -90,10 +86,12 @@ public class CompilationEngine {
             }
             eat(tokenizer.tokenVal());     // sub-return-type (classname / void)
             emitSubroutineIdenntifier(tokenizer.tokenVal());
-            subVarsST.setSubName(eat(tokenizer.tokenVal()));     // sub-name
+            vmWriter.setSubName(eat(tokenizer.tokenVal()));     // sub-name
+
             eat("(");
-            compileParameterList();
+            vmWriter.setSubArgs(compileParameterList());
             eat(")");
+            vmWriter.writeFunction();
             emitString("subroutineBody");
             eat("{");
             // subroutineBody: '{' varDec* statements '}'
@@ -111,7 +109,8 @@ public class CompilationEngine {
     }
 
     // Compiles a (possibly empty) parameter list, not including the enclosing “()”.
-    private void compileParameterList(){
+    private int compileParameterList(){
+        int numOfArgs = 0;
         emitString("parameterList"); // prints also on empty list
         // type: 'int' | 'char' | 'boolean' | className
         while ( tokenizer.tokenVal().equals("int") ||
@@ -122,14 +121,14 @@ public class CompilationEngine {
             subVar.setType(eat(tokenizer.tokenVal()));    // type
             subVar.setName(eat(tokenizer.tokenVal()));    // varname
             subVar.setKind("argument");
-            subVarsST.define(subVar);
-            emitVarIdenntifier(subVarsST.getVar(subVar.getName()), "defined");
-
+            vmWriter.addSubVar(subVar);
+            numOfArgs ++;
             if (tokenizer.tokenVal().equals(",")){
                 eat(",");
             } else { break; }
         }
         emitBackString("parameterList");
+        return numOfArgs;
     }
 
     // Compiles a var declaration.
@@ -147,16 +146,14 @@ public class CompilationEngine {
             subVar.setType(eat(tokenizer.tokenVal()));    // type
             subVar.setName(eat(tokenizer.tokenVal()));    // varname
             subVar.setKind("var");
-            subVarsST.define(subVar);
-            emitVarIdenntifier(subVarsST.getVar(subVar.getName()), "defined");
+            vmWriter.addSubVar(subVar);
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
                 Var subVarN = new Var();
                 subVarN.setKind(subVar.getKind());
                 subVarN.setType(subVar.getType());
                 subVarN.setName(eat(tokenizer.tokenVal()));    // varname2, varname3, etc ....
-                subVarsST.define(subVarN);
-                emitVarIdenntifier(subVarsST.getVar(subVarN.getName()), "defined");
+                vmWriter.addSubVar(subVarN);
             }
             eat(";");           // ;.
             emitBackString("varDec");
@@ -190,11 +187,13 @@ public class CompilationEngine {
             eat(".");
             String idAfterDot = eat(tokenizer.tokenVal());    // identifier
             emitSubroutineIdenntifier(idAfterDot);
+            id += "." + idAfterDot;
         }
         eat("(");           // ;
-        compileExpressionList();
+        int numOfArgs = compileExpressionList();
         eat(")");           // ;
         eat(";");           // ;
+        vmWriter.writeVoidFunctionCall(id, numOfArgs);
         emitBackString("doStatement");
     }
 
@@ -212,6 +211,8 @@ public class CompilationEngine {
         }
         eat("=");           // =
         compileExpression();
+        //vmWriter.writePop(id);
+
         eat(";");           // ;
         emitBackString("letStatement");
     }
@@ -272,8 +273,9 @@ public class CompilationEngine {
                 tokenizer.tokenVal().equals("<") ||
                 tokenizer.tokenVal().equals(">") ||
                 tokenizer.tokenVal().equals("=")) {
-            eat(tokenizer.tokenVal());
+            String op=eat(tokenizer.tokenVal());
             compileTerm();
+            vmWriter.writeExpression(op);
         }
         emitBackString("expression");
     }
@@ -304,15 +306,6 @@ public class CompilationEngine {
             String id = eat(tokenizer.tokenVal());
             //System.out.println("*** found identifier in term ****" + id);
             if (tokenizer.tokenVal().equals("[")){
-                // lookup : var identifier must be declared in a pattern like : x[]
-                if (subVarsST.getVar(id) != null){
-                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
-                } else if (classVarsST.getVar(id) != null){
-                    emitVarIdenntifier(classVarsST.getVar(id), "used (classST)");
-                } else {
-                    System.out.println("undeclared variable used as array pointer.");
-                    //System.exit(1);
-                }
                 eat("[");
                 compileExpression();
                 eat("]");
@@ -328,12 +321,12 @@ public class CompilationEngine {
                 // if not   : its a Class.function() call
                 //System.out.println(classVarsST);
                 //System.out.println("found .");
-                if (subVarsST.getVar(id) != null){
+                if (vmWriter.getSubVar(id) != null){
                     //System.out.println(id + ". found in subST");
-                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
-                } else if (classVarsST.getVar(id) != null){
+                    emitVarIdenntifier(vmWriter.getSubVar(id), "used (subST)");
+                } else if (vmWriter.getClassVar(id) != null){
                     //System.out.println(id + ". found in classST");
-                    emitVarIdenntifier(classVarsST.getVar(id), "used (classST)");
+                    emitVarIdenntifier(vmWriter.getClassVar(id), "used (classST)");
                 } else {
                     //System.out.println(id + ". is a classname");
                     emitClassIdenntifier(id);
@@ -345,21 +338,22 @@ public class CompilationEngine {
                 compileExpressionList();
                 eat(")");
             } else {
+                vmWriter.writePush(id);
                 // normal identifier without [] or . or ()
-                if (subVarsST.getVar(id) != null){
-                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
-                } else if (classVarsST.getVar(id) != null){
-                    emitVarIdenntifier(classVarsST.getVar(id), "used (classST)");
-                } else {
-                    System.out.println("undeclared variable used as array pointer.");
-                    //System.exit(1);
-                }
+//                if (subVarsST.getVar(id) != null){
+//                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
+//                } else if (classVarsST.getVar(id) != null){
+//                    emitVarIdenntifier(classVarsST.getVar(id), "used (classST)");
+//                } else {
+//                    System.out.println("undeclared variable used as array pointer.");
+//                    //System.exit(1);
+//                }
             }
 
         } else if (tokenizer.tokenType().equals("stringConstant")){
             eat(tokenizer.tokenVal());
         } else if (tokenizer.tokenType().equals("integerConstant")){
-            eat(tokenizer.tokenVal());
+            vmWriter.writeIntegerTerm(eat(tokenizer.tokenVal()));
         } else if (tokenizer.tokenVal().equals("true") ||
                 tokenizer.tokenVal().equals("false") ||
                 tokenizer.tokenVal().equals("null") ||
@@ -381,18 +375,22 @@ public class CompilationEngine {
 
     // Compiles a (possibly empty) commaseparated list of expressions.
     // (expression (',' expression)* )?
-    private void compileExpressionList(){
+    private int compileExpressionList(){
+        int numOfArgs = 0;
         emitString("expressionList");
         if (tokenizer.tokenVal().equals(")")) {
             emitBackString("expressionList");
-            return;
+            return 0;
         }
         compileExpression();
+        numOfArgs ++;
         while (tokenizer.tokenVal().equals(",")) {
             eat(",");
             compileExpression();
+            numOfArgs ++;
         }
         emitBackString("expressionList");
+        return numOfArgs;
     }
 
     // XML output methods
@@ -428,7 +426,7 @@ public class CompilationEngine {
 
     // get the final generated vm code
     public String getCompiledVmCode() {
-        return compiledVmCode;
+        return vmWriter.getCompiledVmCode();
     }
 
 
@@ -480,10 +478,10 @@ public class CompilationEngine {
     }
     // class name
     private void lookupAndEmitVar(String id){
-        if (subVarsST.getVar(id) != null){
-            emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
-        } else if (classVarsST.getVar(id) != null){
-            emitVarIdenntifier(classVarsST.getVar(id), "used (classST)");
+        if (vmWriter.getSubVar(id) != null){
+            emitVarIdenntifier(vmWriter.getSubVar(id), "used (subST)");
+        } else if (vmWriter.getClassVar(id) != null){
+            emitVarIdenntifier(vmWriter.getClassVar(id), "used (classST)");
         } else {
             System.out.println("undeclared variable used.");
             //System.exit(1);
