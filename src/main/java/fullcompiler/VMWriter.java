@@ -15,7 +15,6 @@ public class VMWriter {
     private String vmCode;
     private String compiledXml;
     private String className;
-    private Integer index;
 
     private String subName;
     private Integer subArgs;
@@ -30,10 +29,6 @@ public class VMWriter {
     //public writePush(segment[CONST,ARG,LOCAL,STATIC,THIS,THAT,POINTER,TEMP] , int index){}
 
     //public writePop(segment[CONST,ARG,LOCAL,STATIC,THIS,THAT,POINTER,TEMP] , int index){
-    public void writePop(String id){
-
-
-    }
 
     // write a push command after lookup in both ST's
     public void writePush(String id){
@@ -46,7 +41,22 @@ public class VMWriter {
                     classVarsST.KindOf(id),
                     classVarsST.IndexOf(id));
         } else {
-            System.out.println("undeclared variable used: " +id);
+            System.out.println("error: undeclared variable used: " +id);
+            //System.exit(1);
+        }
+    }
+    // write a pop command after lookup in both ST's
+    public void writePop(String id){
+        if (subVarsST.getVar(id) != null){
+            vmCode += String.format("pop %s %d\n",
+                    subVarsST.KindOf(id),
+                    subVarsST.IndexOf(id));
+        } else if (classVarsST.getVar(id) != null){
+            vmCode += String.format("pop %s %d\n",
+                    classVarsST.KindOf(id),
+                    classVarsST.IndexOf(id));
+        } else {
+            System.out.println("error: assignment to an undeclared variable: " +id);
             //System.exit(1);
         }
     }
@@ -63,12 +73,24 @@ public class VMWriter {
     public void writeVoidFunctionCall(String id, int numOfArgs){
         vmCode += String.format("call %s %s\n", id, numOfArgs);
         vmCode += String.format("pop temp 0\n");
-        vmCode += String.format("push constant 0\n");
-        vmCode += String.format("return\n");
+//        vmCode += String.format("push constant 0\n");
+//        vmCode += String.format("return\n");
     }
     public void writeIntegerTerm(String term){
         vmCode += String.format("push constant %s\n",term);
     }
+
+    // true = -1
+    public void writeTrueTerm(){
+        vmCode += String.format("push constant 1\n");
+        vmCode += String.format("neg\n");
+    }
+    public void writeFalseTerm(){
+        vmCode += String.format("push constant 0\n");
+    }
+
+
+
     public void writeExpression(String op){
         if (op.equals("+")) vmCode += String.format("add\n");
         if (op.equals("-")) vmCode += String.format("sub\n");
@@ -78,9 +100,62 @@ public class VMWriter {
         if (op.equals("|")) vmCode += String.format("or\n");
         if (op.equals("<")) vmCode += String.format("lt\n");
         if (op.equals(">")) vmCode += String.format("gt\n");
-        if (op.equals("=")) System.out.println("error: '=' is not expected inside an expression.");
+        if (op.equals("=")) vmCode += String.format("eq\n");
+    }
+    public void writeUnary(String op){
+        if (op.equals("~")) vmCode += String.format("not\n");
+        if (op.equals("-")) vmCode += String.format("neg\n");
     }
 
+    // IF / IF-ELSE BLOCK
+    //
+    // if statement header
+    public void writeIfStatement(Integer id){
+        vmCode += String.format("not\n");
+        vmCode += String.format("if-goto IFNOT_%d\n", id);
+    }
+    // header for else (if exist)
+    public void writeElseClause(Integer id){
+        vmCode += String.format("goto IFELSEEND_%d\n", id);
+        vmCode += String.format("label IFNOT_%d\n", id);
+    }
+    //footer for else (if exists)
+    public void writeElseEnd(Integer id){
+        vmCode += String.format("label IFELSEEND_%d\n", id);
+    }
+    // end if (used only when no else clause)
+    public void writeIfEnd(Integer id){
+        vmCode += String.format("label IFNOT_%d\n", id);
+    }
+
+    // WHILE BLOCK
+    //
+    // while statement header (before exp to eval)
+    public void writeWhileStatement(Integer id){
+        vmCode += String.format("label WHILEEXP_%d\n", id);
+    }
+    // while statement header
+    public void writeWhileStart(Integer id){
+        vmCode += String.format("not\n");
+        vmCode += String.format("if-goto WHILEEND_%d\n", id);
+    }
+    // end while
+    public void writeWhileEnd(Integer id){
+        vmCode += String.format("goto WHILEEXP_%d\n", id);
+        vmCode += String.format("label WHILEEND_%d\n", id);
+    }
+
+
+    // RETURN ( with/without value)
+    //
+    // pushing dummy value before return if no expression exists ( return; )
+    public void writeReturnDummyValue(){
+        vmCode += String.format("push constant 0\n");
+    }
+    // return
+    public void writeReturn(){
+        vmCode += String.format("return\n");
+    }
 
 
     //

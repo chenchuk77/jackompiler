@@ -13,12 +13,16 @@ public class CompilationEngine {
     private String compiledXml;
     private String className;
 
+    private Integer uniqueLoopId;    // if/while-Statement unique id
+
+
     // ctor gets a tokenizer to parse
     public CompilationEngine(JackTokenizer tokenizer) {
         //tokenizer = new JackTokenizer(filename);
         compiledXml = "";
         this.tokenizer = tokenizer;
         vmWriter = new VMWriter();
+        uniqueLoopId = 0;
         compileClass();
     }
 
@@ -145,7 +149,7 @@ public class CompilationEngine {
             eat("var");         // var
             subVar.setType(eat(tokenizer.tokenVal()));    // type
             subVar.setName(eat(tokenizer.tokenVal()));    // varname
-            subVar.setKind("var");
+            subVar.setKind("local");
             vmWriter.addSubVar(subVar);
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
@@ -211,7 +215,7 @@ public class CompilationEngine {
         }
         eat("=");           // =
         compileExpression();
-        //vmWriter.writePop(id);
+        vmWriter.writePop(id);
 
         eat(";");           // ;
         emitBackString("letStatement");
@@ -219,13 +223,17 @@ public class CompilationEngine {
 
     // Compiles a while statement.
     private void compileWhile(){
+        Integer id = uniqueLoopId++;        // unique id
         emitString("whileStatement");
         eat("while");           // if
+        vmWriter.writeWhileStatement(id);
         eat("(");
         compileExpression();
+        vmWriter.writeWhileStart(id);
         eat(")");
         eat("{");
         compileStatements();
+        vmWriter.writeWhileEnd(id);
         eat("}");
         emitBackString("whileStatement");
     }
@@ -236,6 +244,11 @@ public class CompilationEngine {
         eat(tokenizer.tokenVal());    // return
         if (!tokenizer.tokenVal().equals(";")){
             compileExpression();
+            vmWriter.writeReturn();
+        } else {
+            vmWriter.writeReturnDummyValue();
+            vmWriter.writeReturn();
+
         }
         eat(";");           // ;
         emitBackString("returnStatement");
@@ -243,19 +256,25 @@ public class CompilationEngine {
 
     // Compiles an if statement. possibly with a trailing else clause.
     private void compileIf(){
+        Integer id = uniqueLoopId++;        // unique id
         emitString("ifStatement");
         eat("if");           // if
         eat("(");
         compileExpression();
+        vmWriter.writeIfStatement(id);
         eat(")");
         eat("{");
         compileStatements();
         eat("}");
         if (tokenizer.tokenVal().equals("else")) {
             eat("else");
+            vmWriter.writeElseClause(id);
             eat("{");
             compileStatements();
             eat("}");
+            vmWriter.writeElseEnd(id);
+        } else {
+            vmWriter.writeIfEnd(id);
         }
         emitBackString("ifStatement");
     }
@@ -273,7 +292,7 @@ public class CompilationEngine {
                 tokenizer.tokenVal().equals("<") ||
                 tokenizer.tokenVal().equals(">") ||
                 tokenizer.tokenVal().equals("=")) {
-            String op=eat(tokenizer.tokenVal());
+            String op = eat(tokenizer.tokenVal());
             compileTerm();
             vmWriter.writeExpression(op);
         }
@@ -338,8 +357,8 @@ public class CompilationEngine {
                 compileExpressionList();
                 eat(")");
             } else {
-                vmWriter.writePush(id);
                 // normal identifier without [] or . or ()
+                vmWriter.writePush(id);
 //                if (subVarsST.getVar(id) != null){
 //                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
 //                } else if (classVarsST.getVar(id) != null){
@@ -354,9 +373,13 @@ public class CompilationEngine {
             eat(tokenizer.tokenVal());
         } else if (tokenizer.tokenType().equals("integerConstant")){
             vmWriter.writeIntegerTerm(eat(tokenizer.tokenVal()));
-        } else if (tokenizer.tokenVal().equals("true") ||
-                tokenizer.tokenVal().equals("false") ||
-                tokenizer.tokenVal().equals("null") ||
+        } else if (tokenizer.tokenVal().equals("true")) {
+            eat(tokenizer.tokenVal());
+            vmWriter.writeTrueTerm();
+        } else if (tokenizer.tokenVal().equals("false")){
+            eat(tokenizer.tokenVal());
+            vmWriter.writeFalseTerm();
+        } else if (tokenizer.tokenVal().equals("null") ||
                 tokenizer.tokenVal().equals("this")) {
             eat(tokenizer.tokenVal());
         } else if (tokenizer.tokenVal().equals("(")){
@@ -366,8 +389,9 @@ public class CompilationEngine {
         } else {
             while (tokenizer.tokenVal().equals("-") ||
                     tokenizer.tokenVal().equals("~")) {
-                eat(tokenizer.tokenVal());
+                String op=eat(tokenizer.tokenVal());
                 compileTerm();
+                vmWriter.writeUnary(op);
             }
         }
         emitBackString("term");
