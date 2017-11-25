@@ -68,14 +68,15 @@ public class CompilationEngine {
 
     // Compiles a complete method, function, or constructor.
     private void CompileSubroutine(){
-        // init once per subroutine
-        vmWriter.subInit();
 
         // subroutineDec: ('constructor' | 'function' | 'method') ('void' | type) subroutineName
         // '(' parameterList ')' subroutineBody
         while (tokenizer.tokenVal().equals("method") ||
                tokenizer.tokenVal().equals("function") ||
                tokenizer.tokenVal().equals("constructor")) {
+
+            // init once per subroutine
+            vmWriter.subInit();
 
             // argument0 is always 'this'
             if (tokenizer.tokenVal().equals("method")){
@@ -95,13 +96,15 @@ public class CompilationEngine {
             eat("(");
             vmWriter.setSubArgs(compileParameterList());
             eat(")");
-            vmWriter.writeFunction();
             emitString("subroutineBody");
             eat("{");
             // subroutineBody: '{' varDec* statements '}'
+            int numOfLocalVars = 0;
             if (tokenizer.tokenVal().equals("var")) {
-                compileVarDec();
+                numOfLocalVars = compileVarDec();
             }
+            vmWriter.writeFunction(numOfLocalVars);
+
             compileStatements();
             eat("}");
             emitBackString("subroutineBody");
@@ -137,12 +140,13 @@ public class CompilationEngine {
 
     // Compiles a var declaration.
     // varDec: 'var' type varName (',' varName)* ';'
-    private void compileVarDec(){
+    private int compileVarDec(){
         if (!tokenizer.tokenVal().equals("var")){
             emitString("varDec");
             emitBackString("varDec");
-            return;
+            return 0;
         } // empty varDec list
+        int numOfLocalVars = 0;
         while (tokenizer.tokenVal().equals("var")){
             emitString("varDec");
             Var subVar = new Var();
@@ -151,6 +155,7 @@ public class CompilationEngine {
             subVar.setName(eat(tokenizer.tokenVal()));    // varname
             subVar.setKind("local");
             vmWriter.addSubVar(subVar);
+            numOfLocalVars++;
             while (tokenizer.tokenVal().equals(",")){
                 eat(",");
                 Var subVarN = new Var();
@@ -158,10 +163,12 @@ public class CompilationEngine {
                 subVarN.setType(subVar.getType());
                 subVarN.setName(eat(tokenizer.tokenVal()));    // varname2, varname3, etc ....
                 vmWriter.addSubVar(subVarN);
+                numOfLocalVars++;
             }
             eat(";");           // ;.
             emitBackString("varDec");
         }
+        return numOfLocalVars;
     }
 
     // Compiles a sequence of statements, not including the enclosing “{}”.
@@ -351,11 +358,14 @@ public class CompilationEngine {
                     emitClassIdenntifier(id);
                 }
                 eat(".");
+                // full Class.Funcname
+                String functionFullName = id + "." + eat(tokenizer.tokenVal());
                 //System.out.println(id + "-" + tokenizer.tokenVal());
-                emitSubroutineIdenntifier(eat(tokenizer.tokenVal()));
+                //emitSubroutineIdenntifier(eat(tokenizer.tokenVal()));
                 eat("(");
-                compileExpressionList();
+                int numOfArgs = compileExpressionList();
                 eat(")");
+                vmWriter.writeFunctionCall(functionFullName, numOfArgs);
             } else {
                 // normal identifier without [] or . or ()
                 vmWriter.writePush(id);

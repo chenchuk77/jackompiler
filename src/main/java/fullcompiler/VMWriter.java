@@ -61,8 +61,8 @@ public class VMWriter {
         }
     }
 
-    public void writeFunction(){
-        vmCode += String.format("function %s.%s %s\n", className, subName, subArgs);
+    public void writeFunction(int subLocalVars){
+        vmCode += String.format("function %s.%s %s\n", className, subName, subLocalVars);
     }
 
     // get the final generated vm code
@@ -76,6 +76,12 @@ public class VMWriter {
 //        vmCode += String.format("push constant 0\n");
 //        vmCode += String.format("return\n");
     }
+
+    public void writeFunctionCall(String id, int numOfArgs){
+        vmCode += String.format("call %s %s\n", id, numOfArgs);
+    }
+
+
     public void writeIntegerTerm(String term){
         vmCode += String.format("push constant %s\n",term);
     }

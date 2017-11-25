@@ -98,7 +98,7 @@ public class SymbolTable {
         if (kind.equals("static"))   return staticIndex++;
         if (kind.equals("field"))    return fieldIndex++;
         if (kind.equals("argument")) return argIndex++;
-        if (kind.equals("var"))      return varIndex++;
+        if (kind.equals("local"))      return varIndex++;
         return 0;
     }
 
