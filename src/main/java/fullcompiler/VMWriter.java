@@ -146,7 +146,7 @@ public class VMWriter {
         if (op.equals("+")) vmCode += String.format("add\n");
         if (op.equals("-")) vmCode += String.format("sub\n");
         if (op.equals("*")) vmCode += String.format("call Math.multiply 2\n");
-        if (op.equals("/")) vmCode += String.format("call Math.devide 2\n");
+        if (op.equals("/")) vmCode += String.format("call Math.divide 2\n");
         if (op.equals("&")) vmCode += String.format("and\n");
         if (op.equals("|")) vmCode += String.format("or\n");
         if (op.equals("<")) vmCode += String.format("lt\n");

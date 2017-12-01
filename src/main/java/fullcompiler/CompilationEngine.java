@@ -141,7 +141,7 @@ public class CompilationEngine {
         while ( tokenizer.tokenVal().equals("int") ||
                 tokenizer.tokenVal().equals("char") ||
                 tokenizer.tokenVal().equals("boolean") ||
-                tokenizer.tokenType().equals(TokenType.identifier)){
+                tokenizer.tokenType().equals("identifier")){
             Var subVar = new Var();
             subVar.setType(eat(tokenizer.tokenVal()));    // type
             subVar.setName(eat(tokenizer.tokenVal()));    // varname

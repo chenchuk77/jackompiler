@@ -4,7 +4,6 @@
     <list default="true" id="24997355-a7c8-40ce-aeb6-55d0219dc477" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java" afterPath="$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/SymbolTable.java" afterPath="$PROJECT_DIR$/src/main/java/fullcompiler/SymbolTable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java" afterPath="$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,157 +28,60 @@
     <favorites_list name="gs-rest-service" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53183025">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="CompilationEngine.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="139">
-                  <caret line="215" column="14" lean-forward="false" selection-start-line="215" selection-start-column="14" selection-end-line="215" selection-end-column="14" />
-                  <folding>
-                    <element signature="method#compileIf#0;class#CompilationEngine#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Main.vm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/Main.vm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Square.vm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/Square.vm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SquareGame.vm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/SquareGame.vm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SquareGame.jack" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/SquareGame.jack">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="JackToken.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackToken.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="294">
-                  <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="JackTokenizer.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackTokenizer.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="171">
-                  <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Square.jack" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/Square.jack">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="294">
-                  <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="JackCompiler.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackCompiler.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="422">
-                  <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="VMWriter.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="160">
-                  <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-                  <folding>
-                    <element signature="e#677#678#0" expanded="true" />
-                    <element signature="e#736#737#0" expanded="true" />
-                    <element signature="e#3807#3808#0" expanded="true" />
-                    <element signature="e#3862#3863#0" expanded="true" />
-                    <element signature="e#3927#3928#0" expanded="true" />
-                    <element signature="e#3997#3998#0" expanded="true" />
-                    <element signature="e#4889#4890#0" expanded="true" />
-                    <element signature="e#4949#4950#0" expanded="true" />
-                    <element signature="e#4983#4984#0" expanded="true" />
-                    <element signature="e#5042#5043#0" expanded="true" />
-                    <element signature="e#7419#7420#0" expanded="true" />
-                    <element signature="e#7478#7479#0" expanded="true" />
-                    <element signature="e#7523#7524#0" expanded="true" />
-                    <element signature="e#7574#7575#0" expanded="true" />
-                    <element signature="e#8586#8587#0" expanded="true" />
-                    <element signature="e#8629#8630#0" expanded="true" />
-                    <element signature="e#9030#9031#0" expanded="true" />
-                    <element signature="e#9103#9104#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Square.jack" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Square/Square.jack">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="84">
-                  <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Square.vm" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Square/Square.vm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="147">
-                  <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="CompilationEngine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="696" column="14" lean-forward="false" selection-start-line="696" selection-start-column="14" selection-end-line="696" selection-end-column="14" />
+              <folding>
+                <element signature="method#compileIf#0;class#CompilationEngine#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.vm" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ComplexArrays/Main.vm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.jack" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ComplexArrays/Main.jack">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-854">
+              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JackTokenizer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackTokenizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="126" column="57" lean-forward="false" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TokenType.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/TokenType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -193,12 +95,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>writeExpression</find>
-      <find>push constant 0</find>
-      <find>compileExpressionList</find>
-      <find>Math.</find>
-      <find>writeFunction</find>
-      <find>&quot;</find>
       <find>&quot;&quot;</find>
       <find>&quot;l&quot;</find>
       <find>&quot;lo&quot;</find>
@@ -216,13 +112,19 @@
       <find>###</find>
       <find>### ha</find>
       <find>tor</find>
-      <find>writeVoidFunctionCall</find>
       <find>pushThis</find>
       <find>constructor</find>
       <find>if (id2.equals(</find>
+      <find>moveSquare</find>
       <find>ructo</find>
       <find>this</find>
-      <find>moveSquare</find>
+      <find>writeVoidFunctionCall</find>
+      <find>devide</find>
+      <find>void</find>
+      <find>te</find>
+      <find>tes</find>
+      <find>tokenType().equals</find>
+      <find>test</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -244,12 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/FibonacciElement/FibonacciElement.asm" />
-        <option value="$PROJECT_DIR$/src/main/java/vm/VMFilesReader.java" />
-        <option value="$PROJECT_DIR$/vmcode.vm" />
-        <option value="$PROJECT_DIR$/src/main/java/vm/Parser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/vm/VMTranslator.java" />
-        <option value="$PROJECT_DIR$/JackHelp.txt" />
         <option value="$PROJECT_DIR$/example_page_175.jack" />
         <option value="$PROJECT_DIR$/example_page_175.jack.xml" />
         <option value="$PROJECT_DIR$/src/main/java/cmp/Keyword.java" />
@@ -290,11 +186,17 @@
         <option value="$PROJECT_DIR$/Square/XXX.jack" />
         <option value="$PROJECT_DIR$/Square/SquareGame.jack" />
         <option value="$PROJECT_DIR$/Square/Square.jack" />
-        <option value="$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java" />
         <option value="$PROJECT_DIR$/Square/Square.vm" />
         <option value="$PROJECT_DIR$/Square/SquareGame.vm" />
+        <option value="$PROJECT_DIR$/Square/Main.jack" />
         <option value="$PROJECT_DIR$/Square/Main.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java" />
+        <option value="$PROJECT_DIR$/Average/Main.vm" />
+        <option value="$PROJECT_DIR$/Pong/Ball.vm" />
+        <option value="$PROJECT_DIR$/Pong/Bat.vm" />
+        <option value="$PROJECT_DIR$/Pong/Main.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java" />
+        <option value="$PROJECT_DIR$/ComplexArrays/Main.vm" />
       </list>
     </option>
   </component>
@@ -475,35 +377,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Square" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gs-rest-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hasmproj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Seven" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gs-rest-service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hasmproj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Point" />
+              <option name="myItemId" value="ComplexArrays" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -534,11 +408,11 @@
       <recent name="vm" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ComplexArrays" />
+      <recent name="$PROJECT_DIR$/Pong" />
+      <recent name="$PROJECT_DIR$/Average" />
       <recent name="$PROJECT_DIR$/Square" />
       <recent name="$PROJECT_DIR$/Seven" />
-      <recent name="$PROJECT_DIR$/Point" />
-      <recent name="$PROJECT_DIR$/src/main/java/fullcompiler" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -553,7 +427,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.JackCompiler Square">
+  <component name="RunManager" selected="Application.JackCompiler ComplexArrays">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -981,41 +855,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="VMTranslator" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="vm.VMTranslator" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="1.vm" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-rest-service" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="VMFileReader" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="vm.VMFilesReader" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="FibonacciElement" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-rest-service" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="VMTranslator FibonacciElement" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1076,26 +915,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="JackCompiler 1.jack" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="1.jack" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-rest-service" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="JackCompiler Square" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1116,7 +935,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="JackCompiler ConvertToBin/Main.jack" type="Application" factoryName="Application">
+    <configuration default="false" name="JackCompiler Pong" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="vm.*" />
@@ -1125,7 +944,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="ConvertToBin/Main.jack" />
+      <option name="PROGRAM_PARAMETERS" value="Pong" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1136,7 +955,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="JackCompiler Seven/Test.jack" type="Application" factoryName="Application">
+    <configuration default="false" name="JackCompiler ComplexArrays" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="vm.*" />
@@ -1145,7 +964,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="Seven/Test.jack" />
+      <option name="PROGRAM_PARAMETERS" value="ComplexArrays" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1156,38 +975,14 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="JackCompiler Point" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="Point" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="gs-rest-service" />
-      <envs />
-      <method />
-    </configuration>
-    <list size="11">
+    <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Spring Boot.Application" />
-      <item index="1" class="java.lang.String" itemvalue="Application.VMTranslator" />
-      <item index="2" class="java.lang.String" itemvalue="Application.VMFileReader" />
-      <item index="3" class="java.lang.String" itemvalue="Application.VMTranslator FibonacciElement" />
-      <item index="4" class="java.lang.String" itemvalue="Application.VMTranslator singlefile vmcode.vm" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Tester" />
-      <item index="6" class="java.lang.String" itemvalue="Application.JackCompiler 1.jack" />
-      <item index="7" class="java.lang.String" itemvalue="Application.JackCompiler Square" />
-      <item index="8" class="java.lang.String" itemvalue="Application.JackCompiler ConvertToBin/Main.jack" />
-      <item index="9" class="java.lang.String" itemvalue="Application.JackCompiler Seven/Test.jack" />
-      <item index="10" class="java.lang.String" itemvalue="Application.JackCompiler Point" />
+      <item index="1" class="java.lang.String" itemvalue="Application.VMTranslator FibonacciElement" />
+      <item index="2" class="java.lang.String" itemvalue="Application.VMTranslator singlefile vmcode.vm" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Tester" />
+      <item index="4" class="java.lang.String" itemvalue="Application.JackCompiler Square" />
+      <item index="5" class="java.lang.String" itemvalue="Application.JackCompiler Pong" />
+      <item index="6" class="java.lang.String" itemvalue="Application.JackCompiler ComplexArrays" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -1216,7 +1011,7 @@
       <workItem from="1510301516766" duration="69687000" />
       <workItem from="1510783987139" duration="7969000" />
       <workItem from="1510998949777" duration="40129000" />
-      <workItem from="1511467136858" duration="97043000" />
+      <workItem from="1511467136858" duration="103525000" />
     </task>
     <task id="LOCAL-00001" summary="1. adding js error handling&#10;2. add idea to .gitignore">
       <created>1508505749574</created>
@@ -1337,11 +1132,25 @@
       <option name="project" value="LOCAL" />
       <updated>1511640150819</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="successful compilation of Square&#10;( method calls, no static, no arrays )">
+      <created>1512157459801</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1512157459801</updated>
+    </task>
+    <task id="LOCAL-00019" summary="successful compilation of Average&#10;( strings amd arrays )">
+      <created>1512162369838</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1512162369838</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="383416000" />
+    <option name="totallyTimeSpent" value="389898000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1366,17 +1175,17 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40501043" sideWeight="0.47826087" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40409482" sideWeight="0.83931947" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32672232" sideWeight="0.43667296" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265086" sideWeight="0.42659104" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29094827" sideWeight="0.4448645" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5926724" sideWeight="0.4959042" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29094827" sideWeight="0.2621298" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4536638" sideWeight="0.48330182" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.4952741" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29094827" sideWeight="0.5551355" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17013232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29094827" sideWeight="0.7378702" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32451165" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31573275" sideWeight="0.45557657" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1447,7 +1256,9 @@
     <MESSAGE value="working compiler for Seven/Main.jack&#10;not yet dealt with files, but should work" />
     <MESSAGE value="files handling done.&#10;working if/if-else/while statements" />
     <MESSAGE value="successful compilation of ConvertToBin" />
-    <option name="LAST_COMMIT_MESSAGE" value="successful compilation of ConvertToBin" />
+    <MESSAGE value="successful compilation of Square&#10;( method calls, no static, no arrays )" />
+    <MESSAGE value="successful compilation of Average&#10;( strings amd arrays )" />
+    <option name="LAST_COMMIT_MESSAGE" value="successful compilation of Average&#10;( strings amd arrays )" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1460,32 +1271,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java</url>
-          <line>459</line>
+          <line>467</line>
           <properties />
           <option name="timeStamp" value="16" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java</url>
-          <line>493</line>
-          <properties />
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java</url>
-          <line>264</line>
-          <properties class="fullcompiler.CompilationEngine" method="compileDo">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="getCompiledVmCode()" language="JAVA" />
         <watch expression="tokenizer.currentToken.name" />
-        <watch expression="getCompiledVmCode()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -1494,110 +1290,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/TokenType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Test.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="12" lean-forward="true" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/util/Formatter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="223" column="0" lean-forward="false" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/lang/String.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="311" column="0" lean-forward="false" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Memory.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Output.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="12" lean-forward="true" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConvertToBin/Memory.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Keyboard.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConvertToBin/Keyboard.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConvertToBin/Math.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1134">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConvertToBin/Main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3969">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Math.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Seven/Array.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="15" lean-forward="false" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Seven/Main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -1626,14 +1318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="4" column="12" lean-forward="true" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ConvertToBin/Array.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1718,14 +1402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Square/Main.jack">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Point/Main.jack">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1792,14 +1468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackCompiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Square/Math.vm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1818,36 +1486,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Square/Square.jack">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="84">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-          <folding>
-            <element signature="e#677#678#0" expanded="true" />
-            <element signature="e#736#737#0" expanded="true" />
-            <element signature="e#3807#3808#0" expanded="true" />
-            <element signature="e#3862#3863#0" expanded="true" />
-            <element signature="e#3927#3928#0" expanded="true" />
-            <element signature="e#3997#3998#0" expanded="true" />
-            <element signature="e#4889#4890#0" expanded="true" />
-            <element signature="e#4949#4950#0" expanded="true" />
-            <element signature="e#4983#4984#0" expanded="true" />
-            <element signature="e#5042#5043#0" expanded="true" />
-            <element signature="e#7419#7420#0" expanded="true" />
-            <element signature="e#7478#7479#0" expanded="true" />
-            <element signature="e#7523#7524#0" expanded="true" />
-            <element signature="e#7574#7575#0" expanded="true" />
-            <element signature="e#8586#8587#0" expanded="true" />
-            <element signature="e#8629#8630#0" expanded="true" />
-            <element signature="e#9030#9031#0" expanded="true" />
-            <element signature="e#9103#9104#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1855,14 +1496,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackTokenizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1901,27 +1534,197 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Square/Square.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="15" lean-forward="true" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+        <state relative-caret-position="147">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackCompiler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/lang/String.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="1063" column="25" lean-forward="false" selection-start-line="1063" selection-start-column="25" selection-end-line="1063" selection-end-column="25" />
+          <folding>
+            <element signature="e#33310#33311#0" expanded="true" />
+            <element signature="e#33380#33381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Square/Main.jack">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Square/Main.vm">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="244" column="0" lean-forward="false" selection-start-line="244" selection-start-column="0" selection-end-line="244" selection-end-column="0" />
+          <folding>
+            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#3807#3808#0" expanded="true" />
+            <element signature="e#3862#3863#0" expanded="true" />
+            <element signature="e#3927#3928#0" expanded="true" />
+            <element signature="e#3997#3998#0" expanded="true" />
+            <element signature="e#4889#4890#0" expanded="true" />
+            <element signature="e#4949#4950#0" expanded="true" />
+            <element signature="e#4983#4984#0" expanded="true" />
+            <element signature="e#5042#5043#0" expanded="true" />
+            <element signature="e#7419#7420#0" expanded="true" />
+            <element signature="e#7478#7479#0" expanded="true" />
+            <element signature="e#7523#7524#0" expanded="true" />
+            <element signature="e#7574#7575#0" expanded="true" />
+            <element signature="e#7659#7660#0" expanded="true" />
+            <element signature="e#7688#7689#0" expanded="true" />
+            <element signature="e#7764#7765#0" expanded="true" />
+            <element signature="e#7812#7813#0" expanded="true" />
+            <element signature="e#9703#9704#0" expanded="true" />
+            <element signature="e#9746#9747#0" expanded="true" />
+            <element signature="e#10147#10148#0" expanded="true" />
+            <element signature="e#10220#10221#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Average/Main.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConvertToBin/Array.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Average/Array.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ComplexArrays/Array.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="2" lean-forward="true" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pong/Array.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="14" lean-forward="false" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Average/Main.jack">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="49" lean-forward="false" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pong/Bat.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="10" lean-forward="false" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pong/Main.jack">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pong/Main.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pong/Ball.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ComplexArrays/Main.jack">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-854">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/TokenType.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
-          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/JackTokenizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="126" column="57" lean-forward="false" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="215" column="14" lean-forward="false" selection-start-line="215" selection-start-column="14" selection-end-line="215" selection-end-column="14" />
+        <state relative-caret-position="269">
+          <caret line="696" column="14" lean-forward="false" selection-start-line="696" selection-start-column="14" selection-end-line="696" selection-end-column="14" />
           <folding>
             <element signature="method#compileIf#0;class#CompilationEngine#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ComplexArrays/Main.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
