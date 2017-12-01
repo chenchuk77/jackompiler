@@ -52,7 +52,7 @@ public class SymbolTable {
     }
 
     // return number of vars of a given kind
-    public int varCounrt(String kind){
+    public int varCount(String kind){
             return (int) vars.values()
                     .stream()
                     .filter(item -> item.getKind().equals(kind))

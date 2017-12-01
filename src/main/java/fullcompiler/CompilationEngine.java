@@ -31,7 +31,7 @@ public class CompilationEngine {
         //one and only init of class-wide symbol table
         emitString("class");
         eat("class");
-        //className = eat(tokenizer.tokenVal());
+        className = tokenizer.tokenVal();
         vmWriter.setClassName(eat(tokenizer.tokenVal()));
         emitClass(className);
         eat("{");
@@ -68,6 +68,7 @@ public class CompilationEngine {
 
     // Compiles a complete method, function, or constructor.
     private void CompileSubroutine(){
+        //Boolean isConstructor = false;
 
         // subroutineDec: ('constructor' | 'function' | 'method') ('void' | type) subroutineName
         // '(' parameterList ')' subroutineBody
@@ -77,14 +78,31 @@ public class CompilationEngine {
 
             // init once per subroutine
             vmWriter.subInit();
+            String subType = eat(tokenizer.tokenVal());
+
+//            // argument0 is always 'this'
+//            if (tokenizer.tokenVal().equals("method")){
+//                subType = "method"
+//                vmWriter.addSubVar(new Var("this", className, "argument", 0));
+//            }
+//            // constructor has special handling
+//            if (tokenizer.tokenVal().equals("constructor")){
+//                isConstructor = true;
+//            }
 
             // argument0 is always 'this'
-            if (tokenizer.tokenVal().equals("method")){
+            if (subType.equals("method")){
                 vmWriter.addSubVar(new Var("this", className, "argument", 0));
             }
 
+//            // constructor has special handling
+//            if (subType.equals("constructor")){
+//                isConstructor = true;
+//            }
+
+
             emitString("subroutineDec");
-            eat(tokenizer.tokenVal());     // sub-type
+            //eat(tokenizer.tokenVal());     // sub-type
             String returnType = tokenizer.tokenVal();
             if (!returnType.equals("void")){
                 emitClassIdenntifier(tokenizer.tokenVal());
@@ -103,7 +121,7 @@ public class CompilationEngine {
             if (tokenizer.tokenVal().equals("var")) {
                 numOfLocalVars = compileVarDec();
             }
-            vmWriter.writeFunction(numOfLocalVars);
+            vmWriter.writeFunction(numOfLocalVars, subType);
 
             compileStatements();
             eat("}");
@@ -188,23 +206,104 @@ public class CompilationEngine {
         emitBackString("statements"); //
     }
 
+
+    private void compileCall(){
+        String funcname = "";
+        String id1 = eat(tokenizer.tokenVal());    // subname to call
+        // xxx() : convert to Classname.xxx() , always a method
+        if (!tokenizer.tokenVal().equals(".")) {
+            funcname = className + "." + id1;
+            //vmWriter.writePushThis();
+            compileMethodCall(funcname, "this");
+        // xxx.yyy() : can be func/method/ctor
+        } else {
+            eat(".");
+            String id2 = eat(tokenizer.tokenVal());
+            // ctor
+            if (id2.equals("new")){
+                funcname = id1 + ".new";
+                compileFunctionCall(funcname);
+            } else {
+                // method call on an object, passing the obj inside x.f() === f(x)
+                if (vmWriter.hasVar(id1)){
+                    funcname = vmWriter.varType(id1) + "." + id2;
+                    compileMethodCall(funcname, id1);
+                // function call
+                } else {
+                    funcname = id1 + "." + id2;
+                    compileFunctionCall(funcname);
+                }
+            }
+        }
+
+    }
+
+    private void  compileFunctionCall(String funcname){
+        eat("(");
+        int numOfArgs = compileExpressionList();
+        eat(")");
+//        System.out.println("### handle-func: " + funcname + " / " + numOfArgs);
+        vmWriter.writeFunctionCall(funcname, numOfArgs);
+    }
+    private void compileMethodCall(String funcname, String obj){
+        // passing obj as the first arg
+        if (obj.equals("this")){
+            vmWriter.writePushThis();
+        } else {
+            vmWriter.writePush(obj);
+        }
+        // then all other args
+        eat("(");
+        int numOfArgs = compileExpressionList() + 1;
+        eat(")");
+        vmWriter.writeFunctionCall(funcname, numOfArgs);
+
+    }
+    private void  compileConstructorCall(String funcname){}
+
     // Compiles a do statement.
     private void compileDo(){
         emitString("doStatement");
         eat("do");           // do
-        String id = eat(tokenizer.tokenVal());    // subname to call
-        if (tokenizer.tokenVal().equals(".")) {
-            emitClassIdenntifier(id);
-            eat(".");
-            String idAfterDot = eat(tokenizer.tokenVal());    // identifier
-            emitSubroutineIdenntifier(idAfterDot);
-            id += "." + idAfterDot;
-        }
-        eat("(");           // ;
-        int numOfArgs = compileExpressionList();
-        eat(")");           // ;
+        compileCall();
+//        String id = eat(tokenizer.tokenVal());    // subname to call
+//        if (tokenizer.tokenVal().equals(".")) {
+//            emitClassIdenntifier(id);
+//            eat(".");
+//            String methodFullName = "";
+//            // method call
+//            if (vmWriter.hasVar(id)) {
+//                vmWriter.writePush(id);
+//                String methodName = eat(tokenizer.tokenVal());
+//                methodFullName = "" + className + "." + id;
+//                handleLocalMethodCall(id, methodFullName);
+//            // function call
+//            } else {
+//                String functionFullName = "" + id + "." + eat(tokenizer.tokenVal());
+//                System.out.println("-- hadle func: " + functionFullName);
+//                handleFunctionCall(functionFullName);
+//            }
+////            String idAfterDot = eat(tokenizer.tokenVal());    // identifier
+////            emitSubroutineIdenntifier(idAfterDot);
+////            id += "." + idAfterDot;
+//        } else if (tokenizer.tokenVal().equals("(")) {
+//            // method call , appending classname
+//            String methodFullName = "" + className + "." + id;
+//            vmWriter.writePushThis();
+////            vmWriter.writePush(id);
+//            handleMethodCall(id, methodFullName);
+//        }
+//
+
+
+
+//        eat("(");           // ;
+//        int numOfArgs = compileExpressionList();
+//        eat(")");           // ;
+        vmWriter.writeDummyPop();
         eat(";");           // ;
-        vmWriter.writeVoidFunctionCall(id, numOfArgs);
+        //vmWriter.writeVoidFunctionCall(id, numOfArgs);
+//        handleVoidFunctionCall(id);
         emitBackString("doStatement");
     }
 
@@ -246,17 +345,33 @@ public class CompilationEngine {
     }
 
     // Compiles a return statement.
-    private void compileReturn(){
+    private void compileReturn(){  // TODO: check how to know if returnning from func/method/ctor
         emitString("returnStatement");
         eat(tokenizer.tokenVal());    // return
-        if (!tokenizer.tokenVal().equals(";")){
-            compileExpression();
+//        if (!tokenizer.tokenVal().equals(";")){
+//            compileExpression();
+//            vmWriter.writeReturn();
+//        } else {
+//            vmWriter.writeReturnDummyValue();
+//            vmWriter.writeReturn();
+//
+//        }
+        if (tokenizer.tokenVal().equals("this")){
+            eat(tokenizer.tokenVal());
+            vmWriter.writeReturnThis();
+            vmWriter.writeReturn();
+
+        } else if  (tokenizer.tokenVal().equals(";")){
+            vmWriter.writeReturnDummyValue();
             vmWriter.writeReturn();
         } else {
-            vmWriter.writeReturnDummyValue();
+            compileExpression();
             vmWriter.writeReturn();
 
         }
+
+
+
         eat(";");           // ;
         emitBackString("returnStatement");
     }
@@ -325,50 +440,148 @@ public class CompilationEngine {
 //        System.out.println("undeclared variable used.");
 //    }
 
+//    private void handleMethodCall (String id, String fullname){
+//        eat("(");
+//        int numOfArgs = compileExpressionList() + 1;
+//        eat(")");
+//        vmWriter.writeMethodCall(id, fullname, numOfArgs);
+//    }
+//    private void handleLocalMethodCall (String id, String fullname){
+//        eat("(");
+//        int numOfArgs = compileExpressionList() + 1;
+//        eat(")");
+//        vmWriter.writeLocalMethodCall(fullname, numOfArgs);
+//    }
+
+//    private void handleFunctionCall (String fullname){
+//        eat("(");
+//        int numOfArgs = compileExpressionList();
+//        eat(")");
+//        System.out.println("### handle-func: " + fullname + " / " + numOfArgs);
+//        vmWriter.writeFunctionCall(fullname, numOfArgs);
+//    }
+//    private void handleVoidFunctionCall (String fullname){
+//        eat("(");
+//        int numOfArgs = compileExpressionList();
+//        eat(")");
+//        vmWriter.writeVoidFunctionCall(fullname, numOfArgs);
+//    }
+
     private void compileTerm(){
         emitString("term");
         if (tokenizer.tokenType().equals("identifier")){
             //System.out.println("*** found identifier in term ****" + tokenizer.tokenVal());
-            String id = eat(tokenizer.tokenVal());
+            String id1 = eat(tokenizer.tokenVal());
             //System.out.println("*** found identifier in term ****" + id);
             if (tokenizer.tokenVal().equals("[")){
                 eat("[");
                 compileExpression();
                 eat("]");
             } else if (tokenizer.tokenVal().equals("(")){
-                // function call
-                emitSubroutineIdenntifier(id);
-                eat("(");
-                compileExpressionList();
-                eat(")");
-            } else if (tokenizer.tokenVal().equals(".")){
-                // lookup to realize which kind of function call
-                // if found : its a var.function() call
-                // if not   : its a Class.function() call
-                //System.out.println(classVarsST);
-                //System.out.println("found .");
-                if (vmWriter.getSubVar(id) != null){
-                    //System.out.println(id + ". found in subST");
-                    emitVarIdenntifier(vmWriter.getSubVar(id), "used (subST)");
-                } else if (vmWriter.getClassVar(id) != null){
-                    //System.out.println(id + ". found in classST");
-                    emitVarIdenntifier(vmWriter.getClassVar(id), "used (classST)");
-                } else {
-                    //System.out.println(id + ". is a classname");
-                    emitClassIdenntifier(id);
-                }
+                // method call , appending classname
+                String funcname = "" +className+ "." + id1;
+                //vmWriter.writePush(id);
+//                vmWriter.writePushThis();
+                compileMethodCall(funcname, "this");
+//                handleMethodCall(id, methodFullName);
+//                String functionFullName = "" +className+ "." +id;
+//                emitSubroutineIdenntifier(id);
+//                eat("(");
+//                int numOfArgs = compileExpressionList();
+//                eat(")");
+//                vmWriter.writeFunctionCall(functionFullName, numOfArgs);
+            } else if (tokenizer.tokenVal().equals(".")) {
                 eat(".");
-                // full Class.Funcname
-                String functionFullName = id + "." + eat(tokenizer.tokenVal());
-                //System.out.println(id + "-" + tokenizer.tokenVal());
-                //emitSubroutineIdenntifier(eat(tokenizer.tokenVal()));
-                eat("(");
-                int numOfArgs = compileExpressionList();
-                eat(")");
-                vmWriter.writeFunctionCall(functionFullName, numOfArgs);
+                String id2 = eat(tokenizer.tokenVal());
+                String funcname = "";
+                // ctor
+                if (id2.equals("new")){
+                    funcname = id1 + ".new";
+                    //compileConstructorCall(funcname);
+                    compileFunctionCall(funcname);
+                } else {
+                    // method call on an object, passing the obj inside x.f() === f(x)
+                    if (vmWriter.hasVar(id1)){
+                        funcname = vmWriter.varType(id1) + "." + id2;
+                        compileMethodCall(funcname, id1);
+                        // function call
+                    } else {
+                        funcname = id1 + "." + id2;
+                        compileFunctionCall(funcname);
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//                eat(".");
+//                String methodFullName = ""; // method call
+//                if (vmWriter.hasVar(id)) {
+//                    vmWriter.writePush(id);
+//                    methodFullName = "" + className + "." + eat(tokenizer.tokenVal());
+//                    handleMethodCall(id, methodFullName);
+//                    // function call
+//                } else {
+//                    String functionFullName = "" + id + "." + eat(tokenizer.tokenVal());
+//                    handleFunctionCall(functionFullName);
+//                }
+//                // method call
+//                // lookup to realize which kind of function call
+//                // if found : its a var.method() call
+//                // if not   : its a Class.function() call
+//                //System.out.println(classVarsST);
+//                //System.out.println("found .");
+//                String functionFullName = "";
+//                String functionType = "";
+//
+//                // if method call, passing object as arg0
+//                if (vmWriter.getSubVar(id) != null || vmWriter.getClassVar(id) != null){
+//                    if (vmWriter.getSubVar(id) != null){
+//                        functionType = vmWriter.getSubVar(id).getType() ;
+//                    } else if (vmWriter.getClassVar(id) != null){
+//                        functionType = vmWriter.getSubVar(id).getType() ;
+//                    }
+//                    //System.out.println(id + ". found in subST");
+//                    emitVarIdenntifier(vmWriter.getSubVar(id), "used (subST/classST)");
+//
+//                    // in OOP obj.method(x,y) translated to method(obj,x,y)
+//                    // so first push obj
+//                    vmWriter.writePush(id);
+//                    eat(".");
+//                    String functionName = eat(tokenizer.tokenVal());
+//                    functionFullName = functionType + "." + functionName;
+//                    eat("(");
+//                    // 1 more for the object at argument 0
+//                    int numOfArgs = compileExpressionList() + 1;
+//                    eat(")");
+//                    vmWriter.writeFunctionCall(functionFullName, numOfArgs);
+//                } else {
+//
+//                    eat(".");
+//                    functionFullName = id + "." +eat(tokenizer.tokenVal());
+//                    //System.out.println(id + ". is a classname");
+//                    emitClassIdenntifier(id);
+//                    // full Class.Funcname
+//                    //System.out.println(id + "-" + tokenizer.tokenVal());
+//                    //emitSubroutineIdenntifier(eat(tokenizer.tokenVal()));
+//                    eat("(");
+//                    int numOfArgs = compileExpressionList();
+//                    eat(")");
+//                    vmWriter.writeFunctionCall(functionFullName, numOfArgs);
+//                }
             } else {
                 // normal identifier without [] or . or ()
-                vmWriter.writePush(id);
+                vmWriter.writePush(id1);
 //                if (subVarsST.getVar(id) != null){
 //                    emitVarIdenntifier(subVarsST.getVar(id), "used (subST)");
 //                } else if (classVarsST.getVar(id) != null){
@@ -378,7 +591,6 @@ public class CompilationEngine {
 //                    //System.exit(1);
 //                }
             }
-
         } else if (tokenizer.tokenType().equals("stringConstant")){
             eat(tokenizer.tokenVal());
         } else if (tokenizer.tokenType().equals("integerConstant")){
@@ -392,6 +604,7 @@ public class CompilationEngine {
         } else if (tokenizer.tokenVal().equals("null") ||
                 tokenizer.tokenVal().equals("this")) {
             eat(tokenizer.tokenVal());
+            vmWriter.writeThisTerm();
         } else if (tokenizer.tokenVal().equals("(")){
             eat("(");
             compileExpression();
@@ -469,6 +682,7 @@ public class CompilationEngine {
         if (tokenizer.tokenVal().equals(tokenVal)){
             // replace < with HTML equiv
             String val = tokenVal;
+            //System.out.print(tokenVal + "\t eated\n");
             if (tokenVal.equals("<")) val = "&lt;";
             if (tokenVal.equals(">")) val = "&gt;";
             if (tokenVal.equals("&")) val = "&amp;";

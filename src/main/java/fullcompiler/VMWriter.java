@@ -1,11 +1,5 @@
 package fullcompiler;
 
-import vm.Command;
-import vm.CommandType;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by chenchuk on 10/21/17.
  */
@@ -30,6 +24,14 @@ public class VMWriter {
 
     //public writePop(segment[CONST,ARG,LOCAL,STATIC,THIS,THAT,POINTER,TEMP] , int index){
 
+
+    // write a push this to pass this as arg
+    public void writePushThis() {
+        vmCode += String.format("push pointer 0\n");
+    }
+
+
+
     // write a push command after lookup in both ST's
     public void writePush(String id){
         if (subVarsST.getVar(id) != null){
@@ -37,8 +39,11 @@ public class VMWriter {
                     subVarsST.KindOf(id),
                     subVarsST.IndexOf(id));
         } else if (classVarsST.getVar(id) != null){
+            String kind = classVarsST.KindOf(id);
+            // for methods. emitting this after aligning this pointer to the field vars
+            if (kind.equals("field")){ kind = "this"; }
             vmCode += String.format("push %s %d\n",
-                    classVarsST.KindOf(id),
+                    kind,
                     classVarsST.IndexOf(id));
         } else {
             System.out.println("error: undeclared variable used: " +id);
@@ -52,17 +57,36 @@ public class VMWriter {
                     subVarsST.KindOf(id),
                     subVarsST.IndexOf(id));
         } else if (classVarsST.getVar(id) != null){
+            String kind = classVarsST.KindOf(id);
+            // for constructors. emitting this after aligning this pointer to the field vars
+            if (kind.equals("field")){ kind = "this"; }
             vmCode += String.format("pop %s %d\n",
-                    classVarsST.KindOf(id),
-                    classVarsST.IndexOf(id));
+                            kind,
+                            classVarsST.IndexOf(id));
         } else {
             System.out.println("error: assignment to an undeclared variable: " +id);
             //System.exit(1);
         }
     }
 
-    public void writeFunction(int subLocalVars){
-        vmCode += String.format("function %s.%s %s\n", className, subName, subLocalVars);
+    //public void writeFunction(int subLocalVars, Boolean isConstructor){
+    public void writeFunction(int subLocalVars, String subType){
+        if (subType.equals("constructor")){
+            // ask alloc for object ( size = num of field vars )
+            int numOfFieldVars = classVarsST.varCount("field");
+            vmCode += String.format("function %s.%s %s\n", className, subName, subLocalVars);
+            vmCode += String.format("push constant %s\n", numOfFieldVars);
+            vmCode += String.format("call Memory.alloc 1\n");
+            vmCode += String.format("pop pointer 0\n");
+        } else if  (subType.equals("method")){
+            vmCode += String.format("function %s.%s %s\n", className, subName, subLocalVars);
+            // set 'this' pointer to the current object
+            vmCode += String.format("push argument 0\n");
+            vmCode += String.format("pop pointer 0\n");
+        } else {
+            vmCode += String.format("function %s.%s %s\n", className, subName, subLocalVars);
+        }
+
     }
 
     // get the final generated vm code
@@ -70,17 +94,36 @@ public class VMWriter {
         return vmCode;
     }
 
-    public void writeVoidFunctionCall(String id, int numOfArgs){
-        vmCode += String.format("call %s %s\n", id, numOfArgs);
+//    public void writeVoidFunctionCall(String id, int numOfArgs){
+//        vmCode += String.format("call %s %s\n", id, numOfArgs);
+//        vmCode += String.format("pop temp 0\n");
+////        vmCode += String.format("push constant 0\n");
+////        vmCode += String.format("return\n");
+   // }
+    public void writeDummyPop(){
         vmCode += String.format("pop temp 0\n");
-//        vmCode += String.format("push constant 0\n");
-//        vmCode += String.format("return\n");
     }
+
+
+
 
     public void writeFunctionCall(String id, int numOfArgs){
         vmCode += String.format("call %s %s\n", id, numOfArgs);
     }
 
+    public void writeMethodCall(String id, String fullname, int numOfArgs){
+        //String varName = id.split(".")[0];
+        vmCode += String.format("push %s %s\n",
+                subVarsST.getVar(id).getKind(),
+                subVarsST.IndexOf(id));
+        vmCode += String.format("call %s %s\n", fullname, numOfArgs);
+    }
+
+//    public void writeLocalMethodCall(String fullname, int numOfArgs){
+//        //String varName = id.split(".")[0];
+//        vmCode += String.format("push pointer 0\n");
+//        //vmCode += String.format("call %s %s\n", fullname, numOfArgs);
+//    }
 
     public void writeIntegerTerm(String term){
         vmCode += String.format("push constant %s\n",term);
@@ -94,7 +137,9 @@ public class VMWriter {
     public void writeFalseTerm(){
         vmCode += String.format("push constant 0\n");
     }
-
+    public void writeThisTerm() {
+        vmCode += String.format("push pointer 0\n");
+    }
 
 
     public void writeExpression(String op){
@@ -141,6 +186,7 @@ public class VMWriter {
         vmCode += String.format("label WHILEEXP_%d\n", id);
     }
     // while statement header
+
     public void writeWhileStart(Integer id){
         vmCode += String.format("not\n");
         vmCode += String.format("if-goto WHILEEND_%d\n", id);
@@ -157,6 +203,11 @@ public class VMWriter {
     // pushing dummy value before return if no expression exists ( return; )
     public void writeReturnDummyValue(){
         vmCode += String.format("push constant 0\n");
+    }
+
+    // constructors returns 'this' ref
+    public void writeReturnThis(){
+        vmCode += String.format("push pointer 0\n");
     }
     // return
     public void writeReturn(){
@@ -208,7 +259,21 @@ public class VMWriter {
         return subVarsST.getVar(id);
     }
 
+    // return var type after lookup in both tables, null if not found
+    public String varType (String id){
+        if (getSubVar(id) != null){
+            return getSubVar(id).getType() ;
+        }
+        if (getClassVar(id) != null){
+            return getClassVar(id).getType() ;
+        }
+        return null;
+    }
 
+    // lookup a varname in both tables
+    public Boolean hasVar(String id){
+        return (getSubVar(id) != null || getClassVar(id) != null);
+    }
 
     public void addClassVar(Var var){
         classVarsST.define(var);
