@@ -214,6 +214,43 @@ public class VMWriter {
         vmCode += String.format("return\n");
     }
 
+    // setting base array address
+    public void writeArrayBaseAddress(String id){
+        writePush(id);
+    }
+
+    // adding array base addr + offset
+    public void writeArrayOffset(){
+        vmCode += String.format("add\n");
+    }
+
+    // input into the array cell after align and offset
+    public void writeToArray(){
+        vmCode += String.format("pop temp 0\n");
+        vmCode += String.format("pop pointer 1\n");
+        vmCode += String.format("push temp 0\n");
+        vmCode += String.format("pop that 0\n");
+    }
+
+    // allign the array and push
+    public void writeArrayTerm(){
+        vmCode += String.format("pop pointer 1\n");
+        vmCode += String.format("push that 0\n");
+    }
+
+    // allign the array and push
+    public void writeStringTerm(String string){
+        vmCode += String.format("push constant %d\n", string.length());
+        vmCode += String.format("call String.new 1\n");
+        for (char c: string.toCharArray()) {
+
+            vmCode += String.format("push constant %d\n", (int)c);
+            vmCode += String.format("call String.appendChar 2\n");
+        }
+    }
+
+
+
 
     //
 //    public void codeWrite(String expression){

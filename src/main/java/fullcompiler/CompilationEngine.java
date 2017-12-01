@@ -316,12 +316,20 @@ public class CompilationEngine {
         lookupAndEmitVar(id);
         if (tokenizer.tokenVal().equals("[")) {
             eat("[");
+            vmWriter.writeArrayBaseAddress(id);
             compileExpression();
+            vmWriter.writeArrayOffset();
             eat("]");
+
+            eat("=");
+            compileExpression();
+            vmWriter.writeToArray();
+
+        } else {
+            eat("=");
+            compileExpression();
+            vmWriter.writePop(id);
         }
-        eat("=");           // =
-        compileExpression();
-        vmWriter.writePop(id);
 
         eat(";");           // ;
         emitBackString("letStatement");
@@ -475,7 +483,10 @@ public class CompilationEngine {
             //System.out.println("*** found identifier in term ****" + id);
             if (tokenizer.tokenVal().equals("[")){
                 eat("[");
+                vmWriter.writeArrayBaseAddress(id1);
                 compileExpression();
+                vmWriter.writeArrayOffset();
+                vmWriter.writeArrayTerm();
                 eat("]");
             } else if (tokenizer.tokenVal().equals("(")){
                 // method call , appending classname
@@ -592,6 +603,7 @@ public class CompilationEngine {
 //                }
             }
         } else if (tokenizer.tokenType().equals("stringConstant")){
+            vmWriter.writeStringTerm(tokenizer.tokenVal());
             eat(tokenizer.tokenVal());
         } else if (tokenizer.tokenType().equals("integerConstant")){
             vmWriter.writeIntegerTerm(eat(tokenizer.tokenVal()));
