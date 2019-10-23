@@ -1,4 +1,4 @@
-package fullcompiler;
+package net.kukinet.jack.compiler;
 
 import java.io.IOException;
 import java.nio.file.Files;

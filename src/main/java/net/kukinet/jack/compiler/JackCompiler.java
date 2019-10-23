@@ -1,4 +1,4 @@
-package fullcompiler;
+package net.kukinet.jack.compiler;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +104,6 @@ public class JackCompiler {
     }
 
     public static void main(String[] args) throws Exception{
-            new JackCompiler(args[0]);
-        }
+        new JackCompiler(args[0]);
+    }
 }

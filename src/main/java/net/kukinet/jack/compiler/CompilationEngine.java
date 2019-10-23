@@ -1,4 +1,4 @@
-package fullcompiler;
+package net.kukinet.jack.compiler;
 
 /**
  * Created by chenchuk on 11/15/17.

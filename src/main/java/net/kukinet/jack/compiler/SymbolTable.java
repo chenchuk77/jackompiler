@@ -1,4 +1,4 @@
-package fullcompiler;
+package net.kukinet.jack.compiler;
 
 import java.util.HashMap;
 import java.util.Map;

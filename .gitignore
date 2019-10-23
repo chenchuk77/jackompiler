@@ -5,8 +5,6 @@ target/*
 .lst
 *.asm
 *.vm
-.idea/workspace.xml
+.idea/*
 *.tst
 **/*.out
-.idea/misc.xml
-.idea/workspace.xml
