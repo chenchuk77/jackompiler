@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24997355-a7c8-40ce-aeb6-55d0219dc477" name="Default" comment="">
+    <list default="true" id="82c90f1d-96ff-40f3-98b1-4214f0c750a5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gs-rest-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gs-rest-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gs-rest-service.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/A_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/C_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/L_Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Assembler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Code.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/SymbolTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/AssemblerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/UserProgram.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/CodeWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/CommandType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/ExampleCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vm/VMTranslator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-backend.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stop-backend.sh" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,117 +38,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_TABLE_DETAILS" value="true" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="gs-rest-service" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="JavaScript File" />
-        <option value="HTML File" />
-        <option value="Enum" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>&quot;&quot;</find>
-      <find>&quot;l&quot;</find>
-      <find>&quot;lo&quot;</find>
-      <find>&quot;local&quot;</find>
-      <find>&quot;va&quot;</find>
-      <find>&quot;var&quot;</find>
-      <find>voidf</find>
-      <find>SquareGame.new</find>
-      <find>getSubVar</find>
-      <find>writeFunctionCall</find>
-      <find>undeclared variable used</find>
-      <find>push argument 0</find>
-      <find>#</find>
-      <find>###</find>
-      <find>### ha</find>
-      <find>tor</find>
-      <find>pushThis</find>
-      <find>constructor</find>
-      <find>if (id2.equals(</find>
-      <find>moveSquare</find>
-      <find>ructo</find>
-      <find>this</find>
-      <find>writeVoidFunctionCall</find>
-      <find>devide</find>
-      <find>void</find>
-      <find>te</find>
-      <find>tes</find>
-      <find>tokenType().equals</find>
-      <find>test</find>
-    </findStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="working-parser" />
-      </map>
-    </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1853" />
-    <option name="height" value="1055" />
-  </component>
-  <component name="ProjectId" id="1Sba4Lcg2MWKRc7DWEQEHHypXHK" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1SbqBrPRyCiGfO8ceIIRIXFYvYH" />
   <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571830700807" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ComplexArrays" />
-      <recent name="$PROJECT_DIR$/Pong" />
-      <recent name="$PROJECT_DIR$/Average" />
-      <recent name="$PROJECT_DIR$/Square" />
-      <recent name="$PROJECT_DIR$/Seven" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="fullcompiler" />
-      <recent name="cmp" />
-      <recent name="vm" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Point" />
-      <recent name="$PROJECT_DIR$/vm-examples" />
-      <recent name="$PROJECT_DIR$/asm-examples" />
-      <recent name="$PROJECT_DIR$/js" />
-    </key>
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -136,415 +61,46 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.JackCompiler ComplexArrays">
-    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="INTERPRETER_PATH" value="/bin/bash" />
-      <option name="PROJECT_INTERPRETER" value="false" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <module name="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet">
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JackCompiler ComplexArrays" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.JackCompiler">
+    <configuration name="JackCompiler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
-      <module name="gs-rest-service" />
-      <option name="PROGRAM_PARAMETERS" value="ComplexArrays" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <module name="jackompiler" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="vm.*" />
+          <option name="PATTERN" value="fullcompiler.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JackCompiler Pong" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
-      <module name="gs-rest-service" />
-      <option name="PROGRAM_PARAMETERS" value="Pong" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JackCompiler Square" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
-      <module name="gs-rest-service" />
-      <option name="PROGRAM_PARAMETERS" value="Square" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Tester" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="cmp.Tester" />
-      <module name="gs-rest-service" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VMTranslator FibonacciElement" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="vm.VMTranslator" />
-      <module name="gs-rest-service" />
-      <option name="PROGRAM_PARAMETERS" value="FibonacciElement" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VMTranslator singlefile vmcode.vm" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="vm.VMTranslator" />
-      <module name="gs-rest-service" />
-      <option name="PROGRAM_PARAMETERS" value="vmcode.vm" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="vm.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="passParentEnv" value="true" />
-      <setting name="launchBrowser" value="true" />
-      <setting name="launchBrowserUrl" value="" />
-      <setting name="depsClasspath" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="gs-rest-service" />
+      <module name="jackompiler" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="hasm.Application" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG">
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file enabled="true" id="idea.log" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Application.VMTranslator FibonacciElement" />
-      <item itemvalue="Application.VMTranslator singlefile vmcode.vm" />
-      <item itemvalue="Application.Tester" />
-      <item itemvalue="Application.JackCompiler Square" />
-      <item itemvalue="Application.JackCompiler Pong" />
-      <item itemvalue="Application.JackCompiler ComplexArrays" />
-      <item itemvalue="Spring Boot.Application" />
-    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JackCompiler" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="24997355-a7c8-40ce-aeb6-55d0219dc477" name="Default" comment="" />
-      <created>1508422825454</created>
+      <changelist id="82c90f1d-96ff-40f3-98b1-4214f0c750a5" name="Default Changelist" comment="" />
+      <created>1571842510523</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1508422825454</updated>
-      <workItem from="1508422828059" duration="23643000" />
-      <workItem from="1508507466425" duration="780000" />
-      <workItem from="1508826182849" duration="8702000" />
-      <workItem from="1508842005130" duration="56425000" />
-      <workItem from="1509307484633" duration="309000" />
-      <workItem from="1509307814338" duration="752000" />
-      <workItem from="1509308586125" duration="78000" />
-      <workItem from="1509308685193" duration="16889000" />
-      <workItem from="1509390632123" duration="128000" />
-      <workItem from="1509546900136" duration="45000" />
-      <workItem from="1510301516766" duration="69687000" />
-      <workItem from="1510783987139" duration="7969000" />
-      <workItem from="1510998949777" duration="40129000" />
-      <workItem from="1511467136858" duration="103525000" />
-      <workItem from="1512811815746" duration="21000" />
-      <workItem from="1571830550134" duration="750000" />
-      <workItem from="1571834576821" duration="1489000" />
+      <updated>1571842510523</updated>
+      <workItem from="1571842513707" duration="272000" />
     </task>
-    <task id="LOCAL-00001" summary="1. adding js error handling&#10;2. add idea to .gitignore">
-      <created>1508505749574</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1508505749574</updated>
-    </task>
-    <task id="LOCAL-00002" summary="1. adding examples&#10;2. adding VM examples (course part 2) *** note tested&#10;3. adding html examples buttons with qjuery handlers">
-      <created>1508582393132</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1508582393132</updated>
-    </task>
-    <task id="LOCAL-00003" summary="1. add vm implementation, 1s working commit">
-      <created>1508704087525</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1508704087525</updated>
-    </task>
-    <task id="LOCAL-00004" summary="all arithmetic commands parsed and assembly generated successfully.&#10;adding unique id in loops to avoid collisions">
-      <created>1508782684495</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1508782684495</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add example strings&#10;passed test of examples&#10;clear output">
-      <created>1508786402848</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1508786402848</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add example strings&#10;passed test of examples&#10;clear output">
-      <created>1508793356530</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1508793356530</updated>
-    </task>
-    <task id="LOCAL-00007" summary="passed the 5 test : 3 memory , 2 stack.">
-      <created>1508837731905</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1508837731905</updated>
-    </task>
-    <task id="LOCAL-00008" summary="goto, labels, if-goto.&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator">
-      <created>1509099270541</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1509099270541</updated>
-    </task>
-    <task id="LOCAL-00009" summary="goto, labels, if-goto.&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator">
-      <created>1509307534605</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1509307534605</updated>
-    </task>
-    <task id="LOCAL-00010" summary="function calls and return successfulle&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator&#10;TODO: multiple files&#10;TODO: static handling">
-      <created>1509307628821</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1509307628821</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fibonacciElement successfully, with handling multiple files&#10;TODO: fix bug with comments&#10;TODO: static handling">
-      <created>1509376887872</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1509376887872</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Fully working project in maven structure.&#10;TODO: make flat folder (no packages for submission)">
-      <created>1509388062041</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1509388062041</updated>
-    </task>
-    <task id="LOCAL-00013" summary="working parser with no expressions">
-      <created>1510747137103</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1510747137103</updated>
-    </task>
-    <task id="LOCAL-00014" summary="working parser with no expressions&#10;clean code comments">
-      <created>1510768235273</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1510768235273</updated>
-    </task>
-    <task id="LOCAL-00015" summary="working compiler for Seven/Main.jack&#10;not yet dealt with files, but should work">
-      <created>1511509253805</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1511509253805</updated>
-    </task>
-    <task id="LOCAL-00016" summary="files handling done.&#10;working if/if-else/while statements">
-      <created>1511554114060</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1511554114060</updated>
-    </task>
-    <task id="LOCAL-00017" summary="successful compilation of ConvertToBin">
-      <created>1511640150819</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1511640150819</updated>
-    </task>
-    <task id="LOCAL-00018" summary="successful compilation of Square&#10;( method calls, no static, no arrays )">
-      <created>1512157459801</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1512157459801</updated>
-    </task>
-    <task id="LOCAL-00019" summary="successful compilation of Average&#10;( strings amd arrays )">
-      <created>1512162369838</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1512162369838</updated>
-    </task>
-    <option name="localTasksCounter" value="20" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -554,83 +110,10 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="text">
-                    <value>
-                      <list>
-                        <option value="*.asm" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. adding js error handling&#10;2. add idea to .gitignore" />
-    <MESSAGE value="1. adding examples&#10;2. adding VM examples (course part 2) *** note tested&#10;3. adding html examples buttons with qjuery handlers" />
-    <MESSAGE value="1. add vm implementation, 1s working commit" />
-    <MESSAGE value="all arithmetic commands parsed and assembly generated successfully.&#10;adding unique id in loops to avoid collisions" />
-    <MESSAGE value="add example strings&#10;passed test of examples&#10;clear output" />
-    <MESSAGE value="passed the 5 test : 3 memory , 2 stack." />
-    <MESSAGE value="goto, labels, if-goto.&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator" />
-    <MESSAGE value="function calls and return successfulle&#10;TODO: fix bug with comments&#10;TODO: check why .asm runs on CPUEmulator, but fails on VMEmulator&#10;TODO: multiple files&#10;TODO: static handling" />
-    <MESSAGE value="fibonacciElement successfully, with handling multiple files&#10;TODO: fix bug with comments&#10;TODO: static handling" />
-    <MESSAGE value="Fully working project in maven structure.&#10;TODO: make flat folder (no packages for submission)" />
-    <MESSAGE value="working parser with no expressions" />
-    <MESSAGE value="working parser with no expressions&#10;clean code comments" />
-    <MESSAGE value="working compiler for Seven/Main.jack&#10;not yet dealt with files, but should work" />
-    <MESSAGE value="files handling done.&#10;working if/if-else/while statements" />
-    <MESSAGE value="successful compilation of ConvertToBin" />
-    <MESSAGE value="successful compilation of Square&#10;( method calls, no static, no arrays )" />
-    <MESSAGE value="successful compilation of Average&#10;( strings amd arrays )" />
-    <option name="LAST_COMMIT_MESSAGE" value="successful compilation of Average&#10;( strings amd arrays )" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/vm/Parser.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java</url>
-          <line>467</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="getCompiledVmCode()" language="JAVA" />
-        <watch expression="tokenizer.currentToken.name" />
-      </configuration>
-    </watches-manager>
-  </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
   </component>
 </project>
