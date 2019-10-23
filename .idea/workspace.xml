@@ -2,35 +2,71 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82c90f1d-96ff-40f3-98b1-4214f0c750a5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/jackompile.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_3_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_8_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_1_1_0_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_5_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_5_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_5_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_annotations_api_8_5_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_2_6_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_3_5_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_1_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_1_10_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_1_5_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_3_12_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_17.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gs-rest-service.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.jack" beforeDir="false" afterPath="$PROJECT_DIR$/example.jack" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/A_Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/C_Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/cmd/L_Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Assembler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Code.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/Parser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hack/core/SymbolTable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/AssemblerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hasm/UserProgram.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/CodeWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/CommandType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/ExampleCode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/Parser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vm/VMTranslator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/start-backend.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stop-backend.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cmp/1.tar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/CompilationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/CompilationEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/JackCompiler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/JackCompiler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/JackToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/JackToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/JackTokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/JackTokenizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/KeyWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/KeyWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/Kind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/Kind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/SymbolTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/TokenType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/VMWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/VMWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fullcompiler/Var.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/kukinet/jack/compiler/Var.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,16 +74,39 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1SbqBrPRyCiGfO8ceIIRIXFYvYH" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="net.kukinet.jack.compiler" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -63,8 +122,9 @@
   </component>
   <component name="RunManager" selected="Application.JackCompiler">
     <configuration name="JackCompiler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fullcompiler.JackCompiler" />
+      <option name="MAIN_CLASS_NAME" value="net.kukinet.jack.compiler.JackCompiler" />
       <module name="jackompiler" />
+      <option name="PROGRAM_PARAMETERS" value="1.jack" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="fullcompiler.*" />
@@ -82,6 +142,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.JackCompiler" />
+      <item itemvalue="Spring Boot.Application" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.JackCompiler" />
@@ -98,7 +162,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571842510523</updated>
-      <workItem from="1571842513707" duration="272000" />
+      <workItem from="1571842513707" duration="5435000" />
     </task>
     <servers />
   </component>
