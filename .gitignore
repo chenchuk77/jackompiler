@@ -8,3 +8,5 @@ target/*
 .idea/workspace.xml
 *.tst
 **/*.out
+.idea/misc.xml
+.idea/workspace.xml
