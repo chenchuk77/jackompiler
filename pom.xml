@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springframework</groupId>
-    <artifactId>hack-assembler</artifactId>
+    <artifactId>jackompiler</artifactId>
     <version>1.0.1</version>
 
     <parent>
