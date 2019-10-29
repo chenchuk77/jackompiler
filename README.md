@@ -32,3 +32,4 @@ $ ./jackompile.sh example-folder # compiles all jack files
 1. fix CORS
 2. fix Rect.asm example on javascript page
 3. add platform to run
+4. add runtime environment (VMEmulator)
